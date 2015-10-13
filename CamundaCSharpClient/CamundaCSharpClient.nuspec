@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>camunda</id>
+    <version>1.0.0</version>
+    <authors>Sulaiman Alajlan</authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://camunda.org/</projectUrl>
+    <iconUrl>http://camunda.com/img/camunda/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>C# client for Camunda REST API</description>
+    <releaseNotes>First Release</releaseNotes>
+    <tags>camunda BPM opensourse REST BPMN</tags>
+  </metadata>
+</package>
