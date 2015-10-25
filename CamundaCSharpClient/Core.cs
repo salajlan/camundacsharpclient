@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.Net;
 
 namespace CamundaCSharpClient
 {
@@ -51,11 +52,19 @@ namespace CamundaCSharpClient
             return response.Data;
         }
 
-        public void AuthenticatorNTLM()
+        public void Authenticator()
         {
             _client.Authenticator = new NtlmAuthenticator();
         }
-        public void AuthenticatorBasic(string userName, string password)
+        public void Authenticator(ICredentials credentials)
+        {
+            if (credentials == null)
+            {
+                throw new ArgumentNullException("credentials");
+            }
+            _client.Authenticator = new NtlmAuthenticator();
+        }
+        public void Authenticator(string userName, string password)
         {
             _client.Authenticator = new HttpBasicAuthenticator(userName, password);
         }
