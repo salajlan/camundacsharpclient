@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RestSharp;
+using RestSharp.Authenticators;
 
 namespace CamundaCSharpClient
 {
@@ -48,7 +49,16 @@ namespace CamundaCSharpClient
 
             var response = _client.Execute<T>(request);
             return response.Data;
-        }        
+        }
+
+        public void AuthenticatorNTLM()
+        {
+            _client.Authenticator = new NtlmAuthenticator();
+        }
+        public void AuthenticatorBasic(string userName, string password)
+        {
+            _client.Authenticator = new HttpBasicAuthenticator(userName, password);
+        }
 
         public virtual IRestResponse Execute(IRestRequest request)
         {
