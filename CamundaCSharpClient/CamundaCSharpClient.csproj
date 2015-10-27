@@ -59,6 +59,7 @@
     <Compile Include="Model\processInstance.cs" />
     <Compile Include="Model\RestException.cs" />
     <Compile Include="Model\task.cs" />
+    <Compile Include="Model\taskComment.cs" />
     <Compile Include="ProcessDefinition.cs" />
     <Compile Include="ProcessInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
