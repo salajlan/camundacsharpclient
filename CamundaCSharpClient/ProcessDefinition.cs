@@ -5,6 +5,7 @@ using System.Text;
 using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
+using CamundaCSharpClient.Query;
 
 namespace CamundaCSharpClient
 {
@@ -124,6 +125,11 @@ namespace CamundaCSharpClient
             
 
             return Execute<processInstance>(request);
+        }
+
+        public ProcessDefinitionQuery ProcessDefinition()
+        {
+            return new ProcessDefinitionQuery(this);
         }
     }
 }
