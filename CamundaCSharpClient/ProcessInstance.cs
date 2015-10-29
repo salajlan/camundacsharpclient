@@ -5,6 +5,7 @@ using System.Text;
 using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
+using CamundaCSharpClient.Query;
 
 namespace CamundaCSharpClient
 {
@@ -163,6 +164,11 @@ namespace CamundaCSharpClient
 
             var resp = Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
+        }
+
+        public ProcessInstanceQuery ProcessInstance()
+        {
+            return new ProcessInstanceQuery(this);
         }
     }
 }

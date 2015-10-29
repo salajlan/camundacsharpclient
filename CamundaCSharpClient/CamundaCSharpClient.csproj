@@ -56,6 +56,7 @@
     <Compile Include="Model\noContentStatus.cs" />
     <Compile Include="Model\group.cs" />
     <Compile Include="Model\processDefinition.cs" />
+    <Compile Include="Model\processDefinitionSuspend.cs" />
     <Compile Include="Model\processDefinitionXML.cs" />
     <Compile Include="Model\processInstance.cs" />
     <Compile Include="Model\RestException.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Model\taskComment.cs" />
     <Compile Include="ProcessDefinition.cs" />
     <Compile Include="ProcessInstance.cs" />
+    <Compile Include="Query\GetProcessInstanceQuery.cs" />
+    <Compile Include="Query\ProcessInstanceQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\GetTaskQuery.cs" />
     <Compile Include="Query\groupQuery.cs" />
