@@ -186,20 +186,62 @@ namespace CamundaCSharpClient.Query
         {
             this.ensure = new EnsureHelper();
         }
-
+        /// <summary> Query for process definitions that fulfill given parameters.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var pd1 = camundaCl.ProcessDefinition().Suspended(false).list();
+        ///</code>
+        ///</example>
         public List<processDefinition> list()
         {
             var request = new RestRequest();
             request.Resource = "/process-definition?" + new queryHelper().buildQuery<ProcessDefinitionQuery>(this);
             return list<processDefinition>(request);
         }
+        /// <summary> Retrieves a single process definition according to the ProcessDefinition interface in the engine.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var pd7 = camundaCl.ProcessDefinition().Key("invoice").singleResult();
+        ///</code>
+        ///</example>
+        public processDefinition singleResult()
+        {
+            var request = new RestRequest();
+            if (this.id != null) request.Resource = "/process-definition/" + this.id;
+            else
+            {
+                this.ensure.ensureNotNull("processDefiniftionKey", this.key);
+                request.Resource = "/process-definition/key/" + this.key ;
+            }
+            return singleResult<processDefinition>(request);
+        }
+        /// <summary> Request the number of process definitions that fulfill the query criteria
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var pd2 = camundaCl.ProcessDefinition().Suspended(false).count();
+        ///</code>
+        ///</example>
         public Count count()
         {
             var request = new RestRequest();
             request.Resource = "/process-definition/count?" + new queryHelper().buildQuery<ProcessDefinitionQuery>(this);
             return count(request);
         }
-
+        /// <summary> Retrieves the BPMN 2.0 XML of this process definition.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var pd3 = camundaCl.ProcessDefinition().Key("invoice").Xml();
+        /// var pd4 = camundaCl.ProcessDefinition().Id("invoice:1:54302a7a-7736-11e5-bc04-40a8f0a54b22").Xml();
+        ///</code>
+        ///</example>
         public processDefinitionXML Xml()
         {
             var request = new RestRequest();
@@ -211,7 +253,16 @@ namespace CamundaCSharpClient.Query
             }
             return client.Execute<processDefinitionXML>(request);
         }
-
+        /// <summary> Instantiates a given process definition.
+        /// </summary>
+        /// <param name="variables">A JSON object containing the variables the process is to be initialized with.</param>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// invoice.CommunicationRootObject d = new invoice.CommunicationRootObject() { comment = new invoice.Comment() { value = "test" }, DeptHead = new invoice.DeptHead() { value = "salajlan" }, approver = new invoice.Approver() { value = "basim"} };
+        /// var pd5 = camundaCl.ProcessDefinition().Key("invoice").BusinessKey("hi").start<invoice.CommunicationRootObject>(d);
+        ///</code>
+        ///</example>
         public processInstance start<T>(T variables)
         {
             this.ensure.ensureNotNull("processDefinitionVariables", variables);
@@ -228,6 +279,31 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             return client.Execute<processInstance>(request);
-        }        
+        }
+        /// <summary> Activate or suspend a given process definition
+        /// </summary>
+        /// <param name="data"> processDefinitionSuspend object</param>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var pr = new processDefinitionSuspend(){ suspended = false, includeProcessInstances = false, executionDate = DateTime.Now };
+        /// var pd6 = camundaCl.ProcessDefinition().Key("invoice").Suspend(pr);
+        ///</code>
+        ///</example>
+        public noContentStatus Suspend(processDefinitionSuspend data)
+        {
+            var request = new RestRequest();
+            if (this.id != null) request.Resource = "/process-definition/" + this.id + "/suspended";
+            else
+            {
+                this.ensure.ensureNotNull("processDefiniftionKey", this.key);
+                request.Resource = "/process-definition/key/" + this.key + "/suspended";
+            }
+            request.Method = Method.PUT;
+            string output = JsonConvert.SerializeObject(data);
+            request.AddParameter("application/json", output, ParameterType.RequestBody);
+            var resp = client.Execute(request);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
+        }
     }
 }

@@ -76,21 +76,44 @@ namespace CamundaCSharpClient.Query
             this.sortOrder = sortOrder;
             return this;
         }
-
+        /// <summary> Query for a list of groups using a list of parameters.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var gr2 = camundaCl.group().list();
+        ///</code>
+        ///</example>
         public List<group> list()
         {
             var request = new RestRequest();
             request.Resource = "/group?" + new queryHelper().buildQuery<groupQuery>(this);
             return list<group>(request);
         }
-
+        /// <summary> Retrieves a single group.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var gr9 = camundaCl.group().Id("test").singleResult();
+        ///</code>
+        ///</example>
         public group singleResult()
         {
+            this.ensure.ensureNotNull("GroupId", this.id);
             var request = new RestRequest();
-            request.Resource = "/group?" + new queryHelper().buildQuery<groupQuery>(this);
+            request.Resource = "/group/" + this.id;
             return singleResult<group>(request);
         }
-
+        /// <summary> Deletes a group by id. or Removes a member from a group.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var gr4 = camundaCl.group().Id("test").Member("salajlan").delete();
+        /// var gr7 = camundaCl.group().Id("test").delete();
+        ///</code>
+        ///</example>
         public noContentStatus delete()
         {
             this.ensure.ensureNotNull("GroupId", this.id);
@@ -101,7 +124,16 @@ namespace CamundaCSharpClient.Query
             var resp = base.client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
         }
-
+        /// <summary> Create a new group.
+        /// </summary>
+        /// <param name="data"> a group object to be create</param>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// group m = new group() { id = "testId", name = "testName", type = "testType" };
+        /// var gr3 = camundaCl.group().create(m);
+        ///</code>
+        ///</example>
         public noContentStatus create(group data)
         {
             this.ensure.ensureNotNull("groupData", data);
@@ -113,9 +145,19 @@ namespace CamundaCSharpClient.Query
             var resp = base.client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
         }
+        /// <summary> Updates a given group.
+        /// </summary>
+        /// <param name="data"> a group object to be updated</param>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// group m = new group() { id = "testId", name = "testName", type = "testType" };
+        /// var gr8 = camundaCl.group().Id("test").update(m);
+        ///</code>
+        ///</example>
         public noContentStatus update(group data)
         {
-            ensure.ensureNotNull("groupId", this.id);
+            this.ensure.ensureNotNull("groupId", this.id);
             this.ensure.ensureNotNull("groupData", data);
             var request = new RestRequest();
             request.Resource = "/group/"+this.id;
@@ -125,6 +167,14 @@ namespace CamundaCSharpClient.Query
             var resp = base.client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
         }
+        /// <summary> Add a member to a group.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var gr6 = camundaCl.group().Id("test").Member("salajlan").create();
+        ///</code>
+        ///</example>
         public noContentStatus create()
         {
             this.ensure.ensureNotNull("groupId", this.id);
@@ -135,7 +185,14 @@ namespace CamundaCSharpClient.Query
             var resp = base.client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
         }
-
+        /// <summary> Query for groups using a list of parameters and retrieves the count.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var gr5 = camundaCl.group().Member("demo").count();
+        ///</code>
+        ///</example>
         public Count count()
         {
             var request = new RestRequest();

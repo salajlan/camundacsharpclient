@@ -450,24 +450,33 @@ namespace CamundaCSharpClient.Query
             this.maxResults = maxResults;
             return this;
         }
-
+        /// <summary> Query for tasks that fulfill a given filter
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var tsk3 = camundaCl.Task().Get().ProcessInstanceId("37ccd7f9-78c5-11e5-beb3-40a8f0a54b22").list();
+        ///</code>
+        ///</example>
         public List<task> list()
         {
             var request = new RestRequest();
             request.Resource = "/task?" + new queryHelper().buildQuery<GetTaskQuery>(this);
             return list<task>(request);
         }
+        /// <summary> Get the number of tasks that fulfill a provided filter.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var tsk4 = camundaCl.Task().Get().Active(true).CreatedBefore(DateTime.Now).CreatedAfter(DateTime.Parse("2015-10-20")).count();
+        ///</code>
+        ///</example>
         public Count count()
         {
             var request = new RestRequest();
             request.Resource = "/task/count?" + new queryHelper().buildQuery<GetTaskQuery>(this);
             return count(request);
-        }
-        public task singleResult()
-        {
-            var request = new RestRequest();
-            request.Resource = "/task?" + new queryHelper().buildQuery<GetTaskQuery>(this);
-            return singleResult<task>(request);
         }
         
     }
