@@ -7,7 +7,7 @@ using System.Text;
 using CamundaCSharpClient.Model;
 using CamundaCSharpClient.Helper;
 
-namespace CamundaCSharpClient.Query
+namespace CamundaCSharpClient.Query.Task
 {
     public class TaskQuery : queryBase
     {

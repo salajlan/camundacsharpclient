@@ -7,7 +7,7 @@ using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
 
-namespace CamundaCSharpClient.Query
+namespace CamundaCSharpClient.Query.ProcessInstance
 {
     public class ProcessInstanceQuery : queryBase
     {
@@ -210,7 +210,6 @@ namespace CamundaCSharpClient.Query
         /// var pi11 = camundaCl.ProcessInstance().ProcessDefinitionId("invoice:1:54302a7a-7736-11e5-bc04-40a8f0a54b22").Suspended(true).Suspend();
         ///</code>
         ///</example>
-        /// <example>
         /// <returns>noContentStatus</returns>
         public noContentStatus Suspend()
         {
@@ -235,6 +234,23 @@ namespace CamundaCSharpClient.Query
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? noContentStatus.Success : noContentStatus.Failed;
-        }        
+        }
+        /// <summary>
+        /// Retrieves an Activity Instance (Tree) for a given process instance.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var pi12 = camundaCl.ProcessInstance().Id("14cc53f0-8067-11e5-ac78-40a8f0a54b22").ActivityInstance();
+        ///</code>
+        ///</example>
+        /// <returns>activityInstance</returns>
+        public activityInstance ActivityInstance()
+        {
+            ensure.ensureNotNull("processInstanceId", this.id);
+            var request = new RestRequest();
+            request.Resource = "/process-instance/" + this.id + "/activity-instances";
+            return client.Execute<activityInstance>(request);
+        }
     }
 }

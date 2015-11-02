@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model
+namespace CamundaCSharpClient.Model.processDefinition
 {
-    public class processDefinitionSuspend
+    public class processDefinitionSuspend : camundaBase
     {
         public bool suspended { get; set; }
         public bool includeProcessInstances { get; set; }

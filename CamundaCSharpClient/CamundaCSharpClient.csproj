@@ -51,32 +51,42 @@
     <Compile Include="Group.cs" />
     <Compile Include="Helper\EnsureHelper.cs" />
     <Compile Include="Helper\queryHelper.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="Model\activityInstance.cs" />
     <Compile Include="Model\camundaBase.cs" />
     <Compile Include="Model\Count.cs" />
+    <Compile Include="Model\history\HistoricDetails.cs" />
+    <Compile Include="Model\history\HistoryProcessInstance.cs" />
+    <Compile Include="Model\history\HistoryTask.cs" />
     <Compile Include="Model\noContentStatus.cs" />
     <Compile Include="Model\group.cs" />
-    <Compile Include="Model\processDefinition.cs" />
-    <Compile Include="Model\processDefinitionSuspend.cs" />
-    <Compile Include="Model\processDefinitionXML.cs" />
+    <Compile Include="Model\processDefinition\processDefinition.cs" />
+    <Compile Include="Model\processDefinition\processDefinitionSuspend.cs" />
+    <Compile Include="Model\processDefinition\processDefinitionXML.cs" />
     <Compile Include="Model\processInstance.cs" />
     <Compile Include="Model\RestException.cs" />
     <Compile Include="Model\task.cs" />
     <Compile Include="Model\taskComment.cs" />
     <Compile Include="ProcessDefinition.cs" />
     <Compile Include="ProcessInstance.cs" />
-    <Compile Include="Query\GetProcessInstanceQuery.cs" />
-    <Compile Include="Query\ProcessInstanceQuery.cs" />
+    <Compile Include="Query\History\DetailsQuery.cs" />
+    <Compile Include="Query\History\HistoryProcessInstanceQuery.cs" />
+    <Compile Include="Query\History\HistoryQuery.cs" />
+    <Compile Include="Query\History\HistoryTaskQuery.cs" />
+    <Compile Include="Query\ProcessInstance\GetProcessInstanceQuery.cs" />
+    <Compile Include="Query\ProcessInstance\ProcessInstanceQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\GetTaskQuery.cs" />
+    <Compile Include="Query\Task\GetTaskQuery.cs" />
     <Compile Include="Query\groupQuery.cs" />
     <Compile Include="Query\ProcessDefinitionQuery.cs" />
     <Compile Include="Query\queryBase.cs" />
-    <Compile Include="Query\TaskQuery.cs" />
+    <Compile Include="Query\Task\TaskQuery.cs" />
     <Compile Include="Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -6,7 +6,7 @@ using CamundaCSharpClient.Model;
 using CamundaCSharpClient.Helper;
 using RestSharp;
 
-namespace CamundaCSharpClient.Query
+namespace CamundaCSharpClient.Query.Task
 {
     public class GetTaskQuery : queryBase
     {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class taskComment
+    public class taskComment : camundaBase
     {
         public string id { get; set; }
         public string userId { get; set; }

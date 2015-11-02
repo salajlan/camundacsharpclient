@@ -6,6 +6,7 @@ using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
 using CamundaCSharpClient.Query;
+using CamundaCSharpClient.Query.Task;
 
 namespace CamundaCSharpClient
 {
