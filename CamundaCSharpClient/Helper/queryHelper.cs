@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,15 +9,20 @@ namespace CamundaCSharpClient.Helper
 {
     public class queryHelper
     {
-        public string buildQuery<T>(T query)
+        public List<Parameter> buildQuery<T>(T query)
         {
-            string queryString = null;
+            List<Parameter> queryParm = new List<Parameter>();
             foreach (var item in query.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
                 if (item.GetValue(query, null) == null) continue;
-                queryString += item.Name + "=" + item.GetValue(query, null) + "&";
+                Parameter parm = new Parameter();
+                parm.Name = item.Name;
+                parm.Value = item.GetValue(query, null);
+                parm.Type = ParameterType.GetOrPost;
+                queryParm.Add(parm);
+                //queryString += item.Name + "=" + item.GetValue(query, null) + "&";
             }
-            return queryString;
+            return queryParm;
         }
     }
 }

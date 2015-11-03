@@ -87,7 +87,12 @@ namespace CamundaCSharpClient.Query
         public List<group> list()
         {
             var request = new RestRequest();
-            request.Resource = "/group?" + new queryHelper().buildQuery<groupQuery>(this);
+            request.Resource = "/group";
+            var parms = new queryHelper().buildQuery<groupQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return list<group>(request);
         }
         /// <summary> Retrieves a single group.
@@ -196,7 +201,12 @@ namespace CamundaCSharpClient.Query
         public Count count()
         {
             var request = new RestRequest();
-            request.Resource = "/group/count?" + new queryHelper().buildQuery<groupQuery>(this);
+            request.Resource = "/group/count";
+            var parms = new queryHelper().buildQuery<groupQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return count(request);
         }
     }

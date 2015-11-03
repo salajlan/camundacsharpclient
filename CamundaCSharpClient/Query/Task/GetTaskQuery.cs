@@ -461,7 +461,12 @@ namespace CamundaCSharpClient.Query.Task
         public List<task> list()
         {
             var request = new RestRequest();
-            request.Resource = "/task?" + new queryHelper().buildQuery<GetTaskQuery>(this);
+            request.Resource = "/task";
+            var parms = new queryHelper().buildQuery<GetTaskQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return list<task>(request);
         }
         /// <summary> Get the number of tasks that fulfill a provided filter.
@@ -475,7 +480,12 @@ namespace CamundaCSharpClient.Query.Task
         public Count count()
         {
             var request = new RestRequest();
-            request.Resource = "/task/count?" + new queryHelper().buildQuery<GetTaskQuery>(this);
+            request.Resource = "/task/count";
+            var parms = new queryHelper().buildQuery<GetTaskQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return count(request);
         }
         

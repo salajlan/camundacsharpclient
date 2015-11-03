@@ -116,7 +116,12 @@ namespace CamundaCSharpClient.Query.History
         public List<HistoricDetails> list()
         {
             var request = new RestRequest();
-            request.Resource = "/history/detail?" + new queryHelper().buildQuery<DetailsQuery>(this);
+            request.Resource = "/history/detail";
+            var parms = new queryHelper().buildQuery<DetailsQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return list<HistoricDetails>(request);
         }
         /// <summary>
@@ -132,7 +137,12 @@ namespace CamundaCSharpClient.Query.History
         public Count count()
         {
             var request = new RestRequest();
-            request.Resource = "/history/detail/count?" + new queryHelper().buildQuery<DetailsQuery>(this);
+            request.Resource = "/history/detail/count";
+            var parms = new queryHelper().buildQuery<DetailsQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return count(request);
         }
 

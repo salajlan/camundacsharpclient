@@ -272,7 +272,12 @@ namespace CamundaCSharpClient.Query.History
         public List<HistoryTask> list()
         {
             var request = new RestRequest();
-            request.Resource = "/history/task?" + new queryHelper().buildQuery<HistoryTaskQuery>(this);
+            request.Resource = "/history/task?";
+            var parms = new queryHelper().buildQuery<HistoryTaskQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return list<HistoryTask>(request);
         }
         /// <summary>
@@ -287,7 +292,12 @@ namespace CamundaCSharpClient.Query.History
         public Count count()
         {
             var request = new RestRequest();
-            request.Resource = "/history/task/count?" + new queryHelper().buildQuery<HistoryTaskQuery>(this);
+            request.Resource = "/history/task/count";
+            var parms = new queryHelper().buildQuery<HistoryTaskQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return count(request);
         }
     }

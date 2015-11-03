@@ -188,7 +188,12 @@ namespace CamundaCSharpClient.Query.History
         public List<HistoryProcessInstance> list()
         {
             var request = new RestRequest();
-            request.Resource = "/history/process-instance?" + new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this);
+            request.Resource = "/history/process-instance";
+            var parms = new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return list<HistoryProcessInstance>(request);
         }
         /// <summary>
@@ -203,7 +208,12 @@ namespace CamundaCSharpClient.Query.History
         public Count count()
         {
             var request = new RestRequest();
-            request.Resource = "/history/process-instance/count?" + new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this);
+            request.Resource = "/history/process-instance/count";
+            var parms = new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this);
+            foreach (var item in parms)
+            {
+                request.AddParameter(item);
+            }
             return count(request);
         }
         /// <summary>
