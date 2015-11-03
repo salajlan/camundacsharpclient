@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CamundaCSharpClient", "CamundaCSharpClient\CamundaCSharpClient.csproj", "{220D5704-6B65-4F39-ABE2-E3786114F2FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CamundaCSharpClient.Test", "CamundaCSharpClient.Test\CamundaCSharpClient.Test.csproj", "{FFDAB6DC-907E-4E6A-9335-6DE75310CEA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{220D5704-6B65-4F39-ABE2-E3786114F2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{220D5704-6B65-4F39-ABE2-E3786114F2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{220D5704-6B65-4F39-ABE2-E3786114F2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDAB6DC-907E-4E6A-9335-6DE75310CEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDAB6DC-907E-4E6A-9335-6DE75310CEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDAB6DC-907E-4E6A-9335-6DE75310CEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDAB6DC-907E-4E6A-9335-6DE75310CEA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
