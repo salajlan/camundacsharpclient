@@ -199,12 +199,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/process-definition?";
-            var parms = new queryHelper().buildQuery<ProcessDefinitionQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return list<processDefinition>(request);
+            return list<processDefinition>(new queryHelper().buildQuery<ProcessDefinitionQuery>(this,request));
         }
         /// <summary> Retrieves a single process definition according to the ProcessDefinition interface in the engine.
         /// </summary>
@@ -237,12 +232,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/process-definition/count";
-            var parms = new queryHelper().buildQuery<ProcessDefinitionQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return count(request);
+            return count(new queryHelper().buildQuery<ProcessDefinitionQuery>(this, request));
         }
         /// <summary> Retrieves the BPMN 2.0 XML of this process definition.
         /// </summary>

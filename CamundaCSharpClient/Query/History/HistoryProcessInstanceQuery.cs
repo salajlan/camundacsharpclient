@@ -189,12 +189,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance";
-            var parms = new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return list<HistoryProcessInstance>(request);
+            return list<HistoryProcessInstance>(new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this, request));
         }
         /// <summary>
         /// Query for the number of historic process instances that fulfill the given parameters.
@@ -209,12 +204,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance/count";
-            var parms = new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return count(request);
+            return count(new queryHelper().buildQuery<HistoryProcessInstanceQuery>(this,request));
         }
         /// <summary>
         /// Retrieves a single historic process instance according to the HistoricProcessInstance interface in the engine.

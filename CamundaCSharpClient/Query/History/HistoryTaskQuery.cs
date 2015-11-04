@@ -273,12 +273,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/task?";
-            var parms = new queryHelper().buildQuery<HistoryTaskQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return list<HistoryTask>(request);
+            return list<HistoryTask>(new queryHelper().buildQuery<HistoryTaskQuery>(this,request));
         }
         /// <summary>
         /// Query for the number of historic tasks that fulfill the given parameters
@@ -293,12 +288,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/task/count";
-            var parms = new queryHelper().buildQuery<HistoryTaskQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return count(request);
+            return count(new queryHelper().buildQuery<HistoryTaskQuery>(this, request));
         }
     }
 }

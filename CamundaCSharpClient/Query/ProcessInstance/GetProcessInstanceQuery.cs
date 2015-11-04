@@ -162,23 +162,13 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         {
             var request = new RestRequest();
             request.Resource = "/process-instance";
-            var parms = new queryHelper().buildQuery<GetProcessInstanceQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return list<processInstance>(request);
+            return list<processInstance>(new queryHelper().buildQuery<GetProcessInstanceQuery>(this,request));
         }
         public Count count()
         {
             var request = new RestRequest();
             request.Resource = "/process-instance/count";
-            var parms = new queryHelper().buildQuery<GetProcessInstanceQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return count(request);
+            return count(new queryHelper().buildQuery<GetProcessInstanceQuery>(this,request));
         }
         
     }

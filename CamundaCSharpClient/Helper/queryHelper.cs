@@ -9,20 +9,22 @@ namespace CamundaCSharpClient.Helper
 {
     public class queryHelper
     {
-        public List<Parameter> buildQuery<T>(T query)
+        /// <summary>
+        /// get the class property and if it's not null add it as a parameter to the request
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="request"></param>
+        /// <returns>RestRequest</returns>
+        public RestRequest buildQuery<T>(T query,RestRequest request)
         {
-            List<Parameter> queryParm = new List<Parameter>();
+            
             foreach (var item in query.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
                 if (item.GetValue(query, null) == null) continue;
-                Parameter parm = new Parameter();
-                parm.Name = item.Name;
-                parm.Value = item.GetValue(query, null);
-                parm.Type = ParameterType.GetOrPost;
-                queryParm.Add(parm);
-                //queryString += item.Name + "=" + item.GetValue(query, null) + "&";
+                request.AddParameter(item.Name, item.GetValue(query, null));
             }
-            return queryParm;
+            return request;
         }
     }
 }

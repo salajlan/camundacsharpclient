@@ -117,12 +117,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/detail";
-            var parms = new queryHelper().buildQuery<DetailsQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return list<HistoricDetails>(request);
+            return list<HistoricDetails>(new queryHelper().buildQuery<DetailsQuery>(this,request));
         }
         /// <summary>
         /// Query for the number of historic details that fulfill the given parameters. Takes the same parameters as the get historic details method
@@ -138,12 +133,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/detail/count";
-            var parms = new queryHelper().buildQuery<DetailsQuery>(this);
-            foreach (var item in parms)
-            {
-                request.AddParameter(item);
-            }
-            return count(request);
+            return count(new queryHelper().buildQuery<DetailsQuery>(this,request));
         }
 
         
