@@ -14,7 +14,6 @@ namespace CamundaCSharpClient.Query.Task
         protected camundaRestClient Client;
 		protected string id { get; set; }
 		protected string userId { get; set; }
-        protected string commentId { get; set; }
 
         EnsureHelper ensure = null;
 
@@ -36,11 +35,6 @@ namespace CamundaCSharpClient.Query.Task
 			return this;
 		}
 
-        public TaskQuery CommentId(string commentId)
-        {
-            this.commentId = commentId;
-            return this;
-        }
         /// <summary>Claim a task for a specific user.
         /// Note: The difference with set a assignee is that here a check is performed to see if the task already has a user assigned to it.
         /// </summary>
@@ -178,7 +172,6 @@ namespace CamundaCSharpClient.Query.Task
         /// <example> 
         /// <code>
         /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
-        /// var tsk10 = camundaCl.Task().Id("a3d0eeb5-78c4-11e5-beb3-40a8f0a54b22").CommentId("d7a2ea89-7cae-11e5-beb3-40a8f0a54b22").Comment();
         /// var tsk12 = camundaCl.Task().Id("a3d0eeb5-78c4-11e5-beb3-40a8f0a54b22").Comment();
         ///</code>
         ///</example>
@@ -186,9 +179,24 @@ namespace CamundaCSharpClient.Query.Task
         {
             this.ensure.ensureNotNull("Id", this.id);
             var request = new RestRequest();
-            if (this.commentId == null) request.Resource = "/task/" + this.id + "/comment";
-            else request.Resource = "/task/" + this.id + "/comment/"+this.commentId;            
+            request.Resource = "/task/" + this.id + "/comment";           
             return Client.Execute<List<taskComment>>(request);
+        }
+        /// <summary> Retrieves a single task comment by task id and comment id.
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var tsk10 = camundaCl.Task().Id("a3d0eeb5-78c4-11e5-beb3-40a8f0a54b22").Comment("d7a2ea89-7cae-11e5-beb3-40a8f0a54b22");
+        ///</code>
+        ///</example>
+        public taskComment Comment(string commentId)
+        {
+            this.ensure.ensureNotNull("Id", this.id);
+            this.ensure.ensureNotNull("ComemntId", commentId);
+            var request = new RestRequest();
+            request.Resource = "/task/" + this.id + "/comment/" + commentId;
+            return Client.Execute<taskComment>(request);
         }
         /// <summary> Create a comment for a task.
         /// </summary>
