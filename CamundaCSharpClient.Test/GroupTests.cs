@@ -1,118 +1,113 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using RestSharp;
-using CamundaCSharpClient.Model;
-using Moq;
-
-namespace CamundaCSharpClient.Test
+﻿namespace CamundaCSharpClient.Test
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using CamundaCSharpClient.Model;
+    using Moq;
+    using NUnit.Framework;
+    using RestSharp;    
+
     [TestFixture]
-    class GroupTests
+    public class GroupTests
     {
-        const string GroupTestId = "testId";
-        const string GroupTestName = "testName";
-        const string GroupTestType = "testType";
-        const string GroupTestMember = "testMember";
-
-        const string SecondGroupTestId = "SecondTestId";
-        const string SecondGroupTestName = "SecondTestName";
-        const string SecondGroupTestType = "SecondTestType";
-        const string SecondGroupTestMember = "SecondTestMember";
-
+        private const string GroupTestId = "testId";
+        private const string GroupTestName = "testName";
+        private const string GroupTestType = "testType";
+        private const string GroupTestMember = "testMember";
 
         private Mock<camundaRestClient> mockClient;
-        private group g1;
         [SetUp]
         public void Setup()
         {
-            mockClient = new Mock<camundaRestClient>("https://test.dev:8080", "default");
-            g1 = new group() { id = GroupTestId, name = GroupTestName, type = GroupTestType };
-            mockClient.CallBase = true;
+            this.mockClient = new Mock<camundaRestClient>("https://test.dev:8080", "default");
+            this.mockClient.CallBase = true;
         }
+
         [Test]
         public void SingleResult_ShouldReturnSingleGroupResult()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute<group>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<group>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(g1);
-            var client = mockClient.Object;
+                .Returns(new group());
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).singleResult();
-            mockClient.Verify(trc => trc.Execute<group>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<group>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/group/" + GroupTestId, req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
-            Assert.AreEqual(GroupTestId, client.Execute<group>(req).id);
-            Assert.AreEqual(GroupTestType, client.Execute<group>(req).type);
-            Assert.AreEqual(GroupTestName, client.Execute<group>(req).name);
         }
+
         [Test]
         public void SingleResult_ShouldThrowArgumentNullException_WhenGroupIdIsMissing()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute<group>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<group>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(g1);
-            var client = mockClient.Object;
+                .Returns(new group());
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).singleResult();
-            mockClient.Verify(trc => trc.Execute<group>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<group>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.Throws<ArgumentNullException>(delegate { client.group().singleResult(); });
         }
+
         [Test]
         public void Delete_ShouldThrowArgumentNullException_WhenGroupIdIsMissing()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
-            var client = mockClient.Object;
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).delete();
-            mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.Throws<ArgumentNullException>(delegate { client.group().delete(); });
         }
+
         [Test]
         public void Delete_ShouldDeleteMemberFromGroup()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
-            var client = mockClient.Object;
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).Member(GroupTestMember).delete();
-            mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/group/" + GroupTestId + "/members/" + GroupTestMember, req.Resource);
             Assert.AreEqual(Method.DELETE, req.Method);
         }
+
         [Test]
         public void Delete_ShouldDeleteGroup()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
-            var client = mockClient.Object;
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).delete();
-            mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreNotEqual("/group/" + GroupTestId + "/members/" + GroupTestMember, req.Resource);
-            Assert.AreEqual("/group/" + GroupTestId , req.Resource);
+            Assert.AreEqual("/group/" + GroupTestId, req.Resource);
             Assert.AreEqual(Method.DELETE, req.Method);
         }
+
         [Test]
         public void Create_ShouldCreateGroup()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
-            var client = mockClient.Object;
-            client.group().create(g1);
-            mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            var client = this.mockClient.Object;
+            client.group().create(new group());
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/group/create", req.Resource);
             Assert.AreEqual(Method.POST, req.Method);
@@ -120,51 +115,102 @@ namespace CamundaCSharpClient.Test
             var par = req.Parameters.Find(x => x.Type == ParameterType.RequestBody);
             Assert.IsNotNull(par);
         }
+
         [Test]
         public void Create_ShouldThrowArgumentNullException()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
-            var client = mockClient.Object;
-            client.group().create(g1);
-            mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            var client = this.mockClient.Object;
+            client.group().create(new group());
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.Throws<ArgumentNullException>(delegate { client.group().create(null); });
             Assert.Throws<ArgumentNullException>(delegate { client.group().Member(GroupTestMember).create(); });
             Assert.Throws<ArgumentNullException>(delegate { client.group().Id(GroupTestId).create(); });
         }
+
         [Test]
         public void Create_ShouldCreateMemberGroup()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
-            var client = mockClient.Object;
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).Member(GroupTestMember).create();
-            mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/group/" + GroupTestId + "/members/" + GroupTestMember, req.Resource);
             Assert.AreEqual(Method.PUT, req.Method);
             Assert.AreEqual(0, req.Parameters.Count);
         }
+
         [Test]
         public void Count_ShouldGetCountOfGroup()
         {
             IRestRequest req = null;
-            mockClient.Setup(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new Count());
-            var client = mockClient.Object;
+            var client = this.mockClient.Object;
             client.group().Id(GroupTestId).Member(GroupTestMember).count();
-            mockClient.Verify(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/group/count", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
             Assert.AreEqual(2, req.Parameters.Count);
             Assert.AreEqual(GroupTestId, req.Parameters.Find(x => x.Name == "id").Value);
             Assert.AreEqual(GroupTestMember, req.Parameters.Find(x => x.Name == "member").Value);
+        }
+
+        [Test]
+        public void Update_ShouldUpdateGroupInfo()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new RestResponse());
+            var client = this.mockClient.Object;
+            client.group().Id(GroupTestId).update(new group());
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/group/" + GroupTestId, req.Resource);
+            Assert.AreEqual(Method.PUT, req.Method);
+            Assert.AreEqual(1, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Type == ParameterType.RequestBody));
+        }
+
+        [Test]
+        public void Update_ShouldThrowArgumentNullException_WhenGroupIdOrGroupDataIsMissing()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new RestResponse());
+            var client = this.mockClient.Object;
+            client.group().Id(GroupTestId).update(new group());
+            this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.Throws<ArgumentNullException>(delegate { client.group().Id(GroupTestId).update(null); });
+            Assert.Throws<ArgumentNullException>(delegate { client.group().update(new group()); });
+        }
+
+        [Test]
+        public void List_ShouldGetListOfGroup()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<group>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<group>());
+            var client = this.mockClient.Object;
+            client.group().Id(GroupTestId).list();
+            this.mockClient.Verify(trc => trc.Execute<List<group>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/group", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(1, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "id"));
         }
     }
 }
