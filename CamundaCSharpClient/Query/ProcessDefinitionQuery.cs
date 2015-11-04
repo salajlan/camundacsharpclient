@@ -198,7 +198,7 @@ namespace CamundaCSharpClient.Query
         public List<processDefinition> list()
         {
             var request = new RestRequest();
-            request.Resource = "/process-definition?";
+            request.Resource = "/process-definition";
             return list<processDefinition>(new queryHelper().buildQuery<ProcessDefinitionQuery>(this,request));
         }
         /// <summary> Retrieves a single process definition according to the ProcessDefinition interface in the engine.
@@ -293,6 +293,7 @@ namespace CamundaCSharpClient.Query
         ///</example>
         public noContentStatus Suspend(processDefinitionSuspend data)
         {
+            this.ensure.ensureNotNull("processDefinitionSuspend data", data);
             var request = new RestRequest();
             if (this.id != null) request.Resource = "/process-definition/" + this.id + "/suspended";
             else

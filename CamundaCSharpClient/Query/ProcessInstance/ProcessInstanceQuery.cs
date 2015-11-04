@@ -165,8 +165,6 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         }
         /// <summary>
         /// Sets a variable of a given process instance
-        /// ex : camundaCl.updateDeleteProcessInstanceVariables<invoice.CommunicationRootObject>(id: "6cf5cc6e-6ce0-11e5-8909-103a20524153", modifications: piVars);
-        /// ex delete : camundaCl.updateDeleteProcessInstanceVariables<invoice.CommunicationRootObject>(id: "6cf5cc6e-6ce0-11e5-8909-103a20524153", deletions: deletion);
         /// </summary>
         /// <param name="variables">A JSON object containing the variables the process is to be initialized with. Each key corresponds to a variable name and each value to a variable value. A variable value is a JSON object with the following properties:
         ///             value 	The variable's value. For variables of type Object, the serialized value has to be submitted as a String value.

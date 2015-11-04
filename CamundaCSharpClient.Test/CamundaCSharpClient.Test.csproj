@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GroupTests.cs" />
+    <Compile Include="ProcessDefinitionTests.cs" />
+    <Compile Include="ProcessInstanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskTests.cs" />
   </ItemGroup>
