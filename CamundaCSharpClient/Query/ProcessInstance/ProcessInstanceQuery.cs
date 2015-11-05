@@ -225,7 +225,11 @@ namespace CamundaCSharpClient.Query.ProcessInstance
                 this.ensure.ensureNotNull("processDefinitionKey", this.processDefinitionKey);
                 obj = new { this.processDefinitionKey, this.suspended };
             }
-            else obj = new { this.processDefinitionId, this.suspended };
+            else
+            {
+                this.ensure.ensureNotNull("processDefinitionId", this.processDefinitionId);
+                obj = new { this.processDefinitionId, this.suspended };
+            }
 
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(obj);

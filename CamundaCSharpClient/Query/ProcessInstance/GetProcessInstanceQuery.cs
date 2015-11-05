@@ -10,9 +10,9 @@ namespace CamundaCSharpClient.Query.ProcessInstance
 {
     public class GetProcessInstanceQuery :  queryBase
     {
-        protected string maxResults { get; set; }
+        protected int? maxResults { get; set; }
 
-        protected string firstResult { get; set; }
+        protected int? firstResult { get; set; }
 
         protected string sortOrder { get; set; }
 
@@ -134,22 +134,18 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             this.variables = variables;
             return this;
         }
-        public GetProcessInstanceQuery SortBy(string sortBy)
+        public GetProcessInstanceQuery SortByNSortOrder(string sortBy,string sortOrder)
         {
             this.sortBy = sortBy;
-            return this;
-        }
-        public GetProcessInstanceQuery SortOrder(string sortOrder)
-        {
             this.sortOrder = sortOrder;
             return this;
         }
-        public GetProcessInstanceQuery FirstResult(string firstResult)
+        public GetProcessInstanceQuery FirstResult(int firstResult)
         {
             this.firstResult = firstResult;
             return this;
         }
-        public GetProcessInstanceQuery MaxResults(string maxResults)
+        public GetProcessInstanceQuery MaxResults(int maxResults)
         {
             this.maxResults = maxResults;
             return this;
