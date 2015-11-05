@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GroupTests.cs" />
+    <Compile Include="HistoryTests.cs" />
     <Compile Include="ProcessDefinitionTests.cs" />
     <Compile Include="ProcessInstanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

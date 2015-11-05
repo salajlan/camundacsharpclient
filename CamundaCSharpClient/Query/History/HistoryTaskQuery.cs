@@ -272,7 +272,7 @@ namespace CamundaCSharpClient.Query.History
         public List<HistoryTask> list()
         {
             var request = new RestRequest();
-            request.Resource = "/history/task?";
+            request.Resource = "/history/task";
             return list<HistoryTask>(new queryHelper().buildQuery<HistoryTaskQuery>(this,request));
         }
         /// <summary>
