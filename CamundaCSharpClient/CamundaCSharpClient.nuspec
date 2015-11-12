@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>camunda</id>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
     <authors>Sulaiman Alajlan</authors>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://camunda.org/</projectUrl>
