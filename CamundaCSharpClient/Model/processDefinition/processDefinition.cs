@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model.processDefinition
+namespace CamundaCSharpClient.Model.ProcessDefinition
 {
-    public class processDefinition : camundaBase
+    public class ProcessDefinition : CamundaBase
     {
-        public string id { get; set; }
-        public string key { get; set; }
-        public string category { get; set; }
-        public object description { get; set; }
-        public string name { get; set; }
-        public int version { get; set; }
-        public string resource { get; set; }
-        public string deploymentId { get; set; }
-        public string diagram { get; set; }
-        public bool suspended { get; set; }
+        public string Id { get; set; }
+
+        public string Key { get; set; }
+
+        public string Category { get; set; }
+
+        public object Description { get; set; }
+
+        public string Name { get; set; }
+
+        public int Version { get; set; }
+
+        public string Resource { get; set; }
+
+        public string DeploymentId { get; set; }
+
+        public string Diagram { get; set; }
+
+        public bool Suspended { get; set; }
     }
 }

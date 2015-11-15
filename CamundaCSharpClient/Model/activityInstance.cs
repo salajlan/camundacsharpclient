@@ -5,18 +5,28 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class activityInstance : camundaBase
+    public class ActivityInstance : CamundaBase
     {
-        public string id { get; set; }
-        public object parentActivityInstanceId { get; set; }
-        public string activityId { get; set; }
-        public string activityType { get; set; }
-        public string processInstanceId { get; set; }
-        public string processDefinitionId { get; set; }
-        public List<activityInstance> childActivityInstances { get; set; }
-        public List<object> childTransitionInstances { get; set; }
-        public List<string> executionIds { get; set; }
-        public string activityName { get; set; }
-        public string name { get; set; }
+        public string Id { get; set; }
+
+        public object ParentActivityInstanceId { get; set; }
+
+        public string ActivityId { get; set; }
+
+        public string ActivityType { get; set; }
+
+        public string ProcessInstanceId { get; set; }
+
+        public string ProcessDefinitionId { get; set; }
+
+        public List<ActivityInstance> ChildActivityInstances { get; set; }
+
+        public List<object> ChildTransitionInstances { get; set; }
+
+        public List<string> ExecutionIds { get; set; }
+
+        public string ActivityName { get; set; }
+
+        public string Name { get; set; }
     }
 }

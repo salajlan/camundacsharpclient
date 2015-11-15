@@ -5,14 +5,20 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class processInstance : camundaBase
+    public class processInstance : CamundaBase
     {
-        public string id { get; set; }
-        public string definitionId { get; set; }
-        public string businessKey { get; set; }
-        public object caseInstanceId { get; set; }
-        public bool ended { get; set; }
-        public bool suspended { get; set; }
-        public object links { get; set; }
+        public string Id { get; set; }
+
+        public string DefinitionId { get; set; }
+
+        public string BusinessKey { get; set; }
+
+        public object CaseInstanceId { get; set; }
+
+        public bool Ended { get; set; }
+
+        public bool Suspended { get; set; }
+
+        public object Links { get; set; }
     }
 }

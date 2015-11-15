@@ -5,10 +5,12 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class group : camundaBase
+    public class Group : CamundaBase
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Type { get; set; }
     }
 }

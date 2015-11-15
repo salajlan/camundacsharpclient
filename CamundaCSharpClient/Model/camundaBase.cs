@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class camundaBase
+    public class CamundaBase
     {
         public RestException RestException { get; set; }
     }

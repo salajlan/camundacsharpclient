@@ -5,21 +5,25 @@ using System.Text;
 
 namespace CamundaCSharpClient.Query.History
 {
-    public class HistoryQuery : queryBase
+    public class HistoryQuery : QueryBase
     {
-        public HistoryQuery(camundaRestClient client) :base(client)
-        { }
+        public HistoryQuery(CamundaRestClient client) : base(client)
+        { 
+        }
+
         public DetailsQuery Details()
         {
-            return new DetailsQuery(client);
+            return new DetailsQuery(Client);
         }
+
         public HistoryProcessInstanceQuery ProcessInstance()
         {
-            return new HistoryProcessInstanceQuery(client);
+            return new HistoryProcessInstanceQuery(Client);
         }
+
         public HistoryTaskQuery Task()
         {
-            return new HistoryTaskQuery(client);
+            return new HistoryTaskQuery(Client);
         }
     }
 }

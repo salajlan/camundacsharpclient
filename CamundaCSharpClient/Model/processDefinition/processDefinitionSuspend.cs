@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model.processDefinition
+namespace CamundaCSharpClient.Model.ProcessDefinition
 {
-    public class processDefinitionSuspend : camundaBase
+    public class ProcessDefinitionSuspend : CamundaBase
     {
-        public bool suspended { get; set; }
-        public bool includeProcessInstances { get; set; }
-        public DateTime executionDate { get; set; }
+        public bool Suspended { get; set; }
+
+        public bool IncludeProcessInstances { get; set; }
+
+        public DateTime ExecutionDate { get; set; }
     }
 }

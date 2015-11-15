@@ -3,30 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model.history
+namespace CamundaCSharpClient.Model.History
 {
-    public class HistoryTask : camundaBase
+    public class HistoryTask : CamundaBase
     {
-        public string id { get; set; }
-        public string processDefinitionId { get; set; }
-        public string processInstanceId { get; set; }
-        public string executionId { get; set; }
-        public string caseDefinitionId { get; set; }
-        public string caseInstanceId { get; set; }
-        public string caseExecutionId { get; set; }
-        public string activityInstanceId { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
-        public string deleteReason { get; set; }
-        public string owner { get; set; }
-        public string assignee { get; set; }
-        public string startTime { get; set; }
-        public string endTime { get; set; }
-        public int duration { get; set; }
-        public string taskDefinitionKey { get; set; }
-        public int priority { get; set; }
-        public string due { get; set; }
-        public string parentTaskId { get; set; }
-        public string followUp { get; set; }
+        public string Id { get; set; }
+
+        public string ProcessDefinitionId { get; set; }
+
+        public string ProcessInstanceId { get; set; }
+
+        public string ExecutionId { get; set; }
+
+        public string CaseDefinitionId { get; set; }
+
+        public string CaseInstanceId { get; set; }
+
+        public string CaseExecutionId { get; set; }
+
+        public string ActivityInstanceId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string DeleteReason { get; set; }
+
+        public string Owner { get; set; }
+
+        public string Assignee { get; set; }
+
+        public string StartTime { get; set; }
+
+        public string EndTime { get; set; }
+
+        public int Duration { get; set; }
+
+        public string TaskDefinitionKey { get; set; }
+
+        public int Priority { get; set; }
+
+        public string Due { get; set; }
+
+        public string ParentTaskId { get; set; }
+
+        public string FollowUp { get; set; }
     }
 }

@@ -6,11 +6,11 @@ using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
 using CamundaCSharpClient.Query;
-using CamundaCSharpClient.Model.processDefinition;
+using CamundaCSharpClient.Model.ProcessDefinition;
 
 namespace CamundaCSharpClient
 {
-    public partial class camundaRestClient
+    public partial class CamundaRestClient
     {
         public ProcessDefinitionQuery ProcessDefinition()
         {

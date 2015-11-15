@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using CamundaCSharpClient.Model;
-    using CamundaCSharpClient.Model.processDefinition;
+    using CamundaCSharpClient.Model.ProcessDefinition;
     using Moq;
     using NUnit.Framework;
     using RestSharp;
@@ -16,11 +16,11 @@
     {
         private const string ProcessDefinitionId = "invoice:1:54302a7a-7736-11e5-bc04-40a8f0a54b22";
         private const string ProcessDefinitionKey = "invoice";
-        private Mock<camundaRestClient> mockClient;
+        private Mock<CamundaRestClient> mockClient;
         [SetUp]
         public void Setup()
         {
-            this.mockClient = new Mock<camundaRestClient>("https://test.dev:8080", "default");
+            this.mockClient = new Mock<CamundaRestClient>("https://test.dev:8080", "default");
             this.mockClient.CallBase = true;
         }
 
@@ -28,12 +28,12 @@
         public void List_ShouldListProcessDefinitions()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<List<processDefinition>>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<List<ProcessDefinition>>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new List<processDefinition>());
+                .Returns(new List<ProcessDefinition>());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Active(true).list();
-            this.mockClient.Verify(trc => trc.Execute<List<processDefinition>>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<List<ProcessDefinition>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -45,12 +45,12 @@
         public void SingleResult_ShouldGetProcessDefinitionById()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<processDefinition>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ProcessDefinition>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new processDefinition());
+                .Returns(new ProcessDefinition());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Id(ProcessDefinitionId).singleResult();
-            this.mockClient.Verify(trc => trc.Execute<processDefinition>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ProcessDefinition>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/" + ProcessDefinitionId, req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -61,12 +61,12 @@
         public void SingleResult_ShouldGetProcessDefinitionByKey()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<processDefinition>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ProcessDefinition>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new processDefinition());
+                .Returns(new ProcessDefinition());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Key(ProcessDefinitionKey).singleResult();
-            this.mockClient.Verify(trc => trc.Execute<processDefinition>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ProcessDefinition>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey, req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -77,12 +77,12 @@
         public void SingleResult_ShouldThrowArgumentNullException_WhenBothOfPDIdAndKeyIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<processDefinition>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ProcessDefinition>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new processDefinition());
+                .Returns(new ProcessDefinition());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Key(ProcessDefinitionKey).singleResult();
-            this.mockClient.Verify(trc => trc.Execute<processDefinition>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ProcessDefinition>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey, req.Resource);
             Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().singleResult(); });
@@ -109,12 +109,12 @@
         public void Xml_ShouldGetProcessDefinitionXmlById()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<processDefinitionXML>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ProcessDefinitionXML>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new processDefinitionXML());
+                .Returns(new ProcessDefinitionXML());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Id(ProcessDefinitionId).Xml();
-            this.mockClient.Verify(trc => trc.Execute<processDefinitionXML>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ProcessDefinitionXML>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/" + ProcessDefinitionId + "/xml", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -125,12 +125,12 @@
         public void Xml_ShouldGetProcessDefinitionXmlByKey()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<processDefinitionXML>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ProcessDefinitionXML>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new processDefinitionXML());
+                .Returns(new ProcessDefinitionXML());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Key(ProcessDefinitionKey).Xml();
-            this.mockClient.Verify(trc => trc.Execute<processDefinitionXML>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ProcessDefinitionXML>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/xml", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -141,12 +141,12 @@
         public void Xml_ShouldThrowArgumentNullException_WhenBothOfPDIdAndKeyIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<processDefinitionXML>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ProcessDefinitionXML>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new processDefinitionXML());
+                .Returns(new ProcessDefinitionXML());
             var client = this.mockClient.Object;
             client.ProcessDefinition().Key(ProcessDefinitionKey).Xml();
-            this.mockClient.Verify(trc => trc.Execute<processDefinitionXML>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ProcessDefinitionXML>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/xml", req.Resource);
             Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().Xml(); });
@@ -160,7 +160,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new processInstance());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Key(ProcessDefinitionKey).start<object>(new object());
+            client.ProcessDefinition().Key(ProcessDefinitionKey).Start<object>(new object());
             this.mockClient.Verify(trc => trc.Execute<processInstance>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/start", req.Resource);
@@ -177,7 +177,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new processInstance());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Id(ProcessDefinitionId).start<object>(new object());
+            client.ProcessDefinition().Id(ProcessDefinitionId).Start<object>(new object());
             this.mockClient.Verify(trc => trc.Execute<processInstance>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/" + ProcessDefinitionId + "/start", req.Resource);
@@ -194,11 +194,11 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new processInstance());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Key(ProcessDefinitionKey).start<object>(new object());
+            client.ProcessDefinition().Key(ProcessDefinitionKey).Start<object>(new object());
             this.mockClient.Verify(trc => trc.Execute<processInstance>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/start", req.Resource);
-            Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().start<object>(new object()); });
+            Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().Start<object>(new object()); });
         }
 
         [Test]
@@ -209,11 +209,11 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new processInstance());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Key(ProcessDefinitionKey).start<object>(new object());
+            client.ProcessDefinition().Key(ProcessDefinitionKey).Start<object>(new object());
             this.mockClient.Verify(trc => trc.Execute<processInstance>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/start", req.Resource);
-            Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().Key(ProcessDefinitionKey).start<object>(null); });
+            Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().Key(ProcessDefinitionKey).Start<object>(null); });
         }
 
         [Test]
@@ -224,7 +224,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Id(ProcessDefinitionId).Suspend(new processDefinitionSuspend());
+            client.ProcessDefinition().Id(ProcessDefinitionId).Suspend(new ProcessDefinitionSuspend());
             this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/" + ProcessDefinitionId + "/suspended", req.Resource);
@@ -241,7 +241,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Key(ProcessDefinitionKey).Suspend(new processDefinitionSuspend());
+            client.ProcessDefinition().Key(ProcessDefinitionKey).Suspend(new ProcessDefinitionSuspend());
             this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/suspended", req.Resource);
@@ -258,11 +258,11 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Key(ProcessDefinitionKey).Suspend(new processDefinitionSuspend());
+            client.ProcessDefinition().Key(ProcessDefinitionKey).Suspend(new ProcessDefinitionSuspend());
             this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/suspended", req.Resource);
-            Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().Suspend(new processDefinitionSuspend()); });
+            Assert.Throws<ArgumentNullException>(delegate { client.ProcessDefinition().Suspend(new ProcessDefinitionSuspend()); });
         }
 
         [Test]
@@ -273,7 +273,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new RestResponse());
             var client = this.mockClient.Object;
-            client.ProcessDefinition().Key(ProcessDefinitionKey).Suspend(new processDefinitionSuspend());
+            client.ProcessDefinition().Key(ProcessDefinitionKey).Suspend(new ProcessDefinitionSuspend());
             this.mockClient.Verify(trc => trc.Execute(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-definition/key/" + ProcessDefinitionKey + "/suspended", req.Resource);

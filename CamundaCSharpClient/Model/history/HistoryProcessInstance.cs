@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model.history
+namespace CamundaCSharpClient.Model.History
 {
-    public class HistoryProcessInstance : camundaBase
+    public class HistoryProcessInstance : CamundaBase
     {
-        public string businessKey { get; set; }
-        public string caseInstanceId { get; set; }
-        public string deleteReason { get; set; }
-        public int durationInMillis { get; set; }
-        public string endTime { get; set; }
-        public string id { get; set; }
-        public string processDefinitionId { get; set; }
-        public string startActivityId { get; set; }
-        public string startTime { get; set; }
-        public string startUserId { get; set; }
-        public string superProcessInstanceId { get; set; }
-        public string superCaseInstanceId { get; set; }
+        public string BusinessKey { get; set; }
+
+        public string CaseInstanceId { get; set; }
+
+        public string DeleteReason { get; set; }
+
+        public int DurationInMillis { get; set; }
+
+        public string EndTime { get; set; }
+
+        public string Id { get; set; }
+
+        public string ProcessDefinitionId { get; set; }
+
+        public string StartActivityId { get; set; }
+
+        public string StartTime { get; set; }
+
+        public string StartUserId { get; set; }
+
+        public string SuperProcessInstanceId { get; set; }
+
+        public string SuperCaseInstanceId { get; set; }
     }
 }

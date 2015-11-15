@@ -17,11 +17,11 @@
         private const string ProcessDefinfitionKey = "invoice";
         private const string ProcessDefifnionId = "invoice:1:54302a7a-7736-11e5-bc04-40a8f0a54b22";
         private const string VarId = "TestVarId";
-        private Mock<camundaRestClient> mockClient;
+        private Mock<CamundaRestClient> mockClient;
         [SetUp]
         public void Setup()
         {
-            this.mockClient = new Mock<camundaRestClient>("https://test.dev:8080", "default");
+            this.mockClient = new Mock<CamundaRestClient>("https://test.dev:8080", "default");
             this.mockClient.CallBase = true;
         }
 
@@ -282,12 +282,12 @@
         public void ActivityInstance_ShouldGetActivityInstance()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<activityInstance>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ActivityInstance>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new activityInstance());
+                .Returns(new ActivityInstance());
             var client = this.mockClient.Object;
             client.ProcessInstance().Id(ProcessInstanceId).ActivityInstance();
-            this.mockClient.Verify(trc => trc.Execute<activityInstance>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ActivityInstance>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-instance/" + ProcessInstanceId + "/activity-instances", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -298,12 +298,12 @@
         public void ActivityInstance_ShouldThrowArgumentNullException_WhenPIIdIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<activityInstance>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<ActivityInstance>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new activityInstance());
+                .Returns(new ActivityInstance());
             var client = this.mockClient.Object;
             client.ProcessInstance().Id(ProcessInstanceId).ActivityInstance();
-            this.mockClient.Verify(trc => trc.Execute<activityInstance>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<ActivityInstance>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/process-instance/" + ProcessInstanceId + "/activity-instances", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);

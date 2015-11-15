@@ -5,12 +5,16 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class taskComment : camundaBase
+    public class TaskComment : CamundaBase
     {
-        public string id { get; set; }
-        public string userId { get; set; }
-        public string taskId { get; set; }
-        public string time { get; set; }
-        public string message { get; set; }
+        public string Id { get; set; }
+
+        public string UserId { get; set; }
+
+        public string TaskId { get; set; }
+
+        public string Time { get; set; }
+
+        public string Message { get; set; }
     }
 }

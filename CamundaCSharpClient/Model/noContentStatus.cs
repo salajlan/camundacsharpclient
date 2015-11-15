@@ -5,15 +5,9 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public enum noContentStatus
+    public enum NoContentStatus
     {
-        /// <summary>
-        /// The Delete was successful
-        /// </summary>
         Success,
-        /// <summary>
-        /// The Delete failed
-        /// </summary>
         Failed
     }
 }

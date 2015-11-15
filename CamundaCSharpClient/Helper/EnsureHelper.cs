@@ -7,7 +7,7 @@ namespace CamundaCSharpClient.Helper
 {
     public class EnsureHelper
     {
-        public void ensureNotNull(string variableName, object value)
+        public void NotNull(string variableName, object value)
         {
             if (value == null)
             {

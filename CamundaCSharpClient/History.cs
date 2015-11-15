@@ -1,12 +1,12 @@
-﻿using CamundaCSharpClient.Query.History;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CamundaCSharpClient.Query.History;
 
 namespace CamundaCSharpClient
 {
-    public partial class camundaRestClient
+    public partial class CamundaRestClient
     {
         public HistoryQuery History()
         {

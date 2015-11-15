@@ -8,8 +8,13 @@ using RestSharp;
 
 namespace CamundaCSharpClient.Query.ProcessInstance
 {
-    public class GetProcessInstanceQuery :  queryBase
+    public class GetProcessInstanceQuery : QueryBase
     {
+        public GetProcessInstanceQuery(CamundaRestClient client)
+            : base(client)
+        {
+        }
+
         protected int? maxResults { get; set; }
 
         protected int? firstResult { get; set; }
@@ -49,6 +54,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         protected string businessKey { get; set; }
 
         protected string processInstanceIds { get; set; }
+
         public GetProcessInstanceQuery ProcessInstanceIds(List<string> processInstanceIds)
         {
             string processInstanceIdsExtract = null;
@@ -56,116 +62,132 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             {
                 processInstanceIdsExtract += item + ",";
             }
+
             this.processInstanceIds = processInstanceIdsExtract;
             return this;
         }
+
         public GetProcessInstanceQuery BusinessKey(string businessKey)
         {
             this.businessKey = businessKey;
             return this;
         }
+
         public GetProcessInstanceQuery CaseInstanceId(string caseInstanceId)
         {
             this.caseInstanceId = caseInstanceId;
             return this;
         }
+
         public GetProcessInstanceQuery ProcessDefinitionId(string processDefinitionId)
         {
             this.processDefinitionId = processDefinitionId;
             return this;
         }
+
         public GetProcessInstanceQuery ProcessDefinitionKey(string processDefinitionKey)
         {
             this.processDefinitionKey = processDefinitionKey;
             return this;
         }
+
         public GetProcessInstanceQuery SuperProcessInstance(string superProcessInstance)
         {
             this.superProcessInstance = superProcessInstance;
             return this;
         }
+
         public GetProcessInstanceQuery SubProcessInstance(string subProcessInstance)
         {
             this.subProcessInstance = subProcessInstance;
             return this;
         }
+
         public GetProcessInstanceQuery SuperCaseInstance(string superCaseInstance)
         {
             this.superCaseInstance = superCaseInstance;
             return this;
         }
+
         public GetProcessInstanceQuery SubCaseInstance(string subCaseInstance)
         {
             this.subCaseInstance = subCaseInstance;
             return this;
         }
+
         public GetProcessInstanceQuery Active(bool active)
         {
             this.active = active.ToString().ToLower();
             return this;
         }
+
         public GetProcessInstanceQuery Suspended(bool suspended)
         {
             this.suspended = suspended.ToString().ToLower();
             return this;
         }
+
         public GetProcessInstanceQuery IncidentId(string incidentId)
         {
             this.incidentId = incidentId;
             return this;
         }
+
         public GetProcessInstanceQuery IncidentType(string incidentType)
         {
             this.incidentType = incidentType;
             return this;
         }
+
         public GetProcessInstanceQuery IncidentMessage(string incidentMessage)
         {
             this.incidentMessage = incidentMessage;
             return this;
         }
+
         public GetProcessInstanceQuery IncidentMessageLike(string incidentMessageLike)
         {
             this.incidentMessageLike = incidentMessageLike;
             return this;
         }
+
         public GetProcessInstanceQuery Variables(string variables)
         {
             this.variables = variables;
             return this;
         }
-        public GetProcessInstanceQuery SortByNSortOrder(string sortBy,string sortOrder)
+
+        public GetProcessInstanceQuery SortByNSortOrder(string sortBy, string sortOrder)
         {
             this.sortBy = sortBy;
             this.sortOrder = sortOrder;
             return this;
         }
+
         public GetProcessInstanceQuery FirstResult(int firstResult)
         {
             this.firstResult = firstResult;
             return this;
         }
+
         public GetProcessInstanceQuery MaxResults(int maxResults)
         {
             this.maxResults = maxResults;
             return this;
-        }
-
-        public GetProcessInstanceQuery(camundaRestClient client) :base(client)
-        { }
+        }        
 
         public List<processInstance> list()
         {
             var request = new RestRequest();
             request.Resource = "/process-instance";
-            return list<processInstance>(new queryHelper().buildQuery<GetProcessInstanceQuery>(this,request));
+            return this.List<processInstance>(new QueryHelper().BuildQuery<GetProcessInstanceQuery>(this, request));
         }
+
         public Count count()
         {
             var request = new RestRequest();
             request.Resource = "/process-instance/count";
-            return count(new queryHelper().buildQuery<GetProcessInstanceQuery>(this,request));
-        }
-        
+            return this.Count(new QueryHelper().BuildQuery<GetProcessInstanceQuery>(this, request));
+        }        
     }
 }

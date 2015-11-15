@@ -7,11 +7,11 @@ using RestSharp;
 
 namespace CamundaCSharpClient
 {
-    public partial class camundaRestClient
+    public partial class CamundaRestClient
     {
-        public groupQuery group()
+        public GroupQuery Group()
         {
-            return new groupQuery(this);
+            return new GroupQuery(this);
         }
     }
 }

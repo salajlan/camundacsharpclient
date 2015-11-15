@@ -7,7 +7,8 @@ namespace CamundaCSharpClient.Model
 {
     public class RestException
     {
-        public string type { get; set; }
-        public string message { get; set; }
+        public string Type { get; set; }
+
+        public string Message { get; set; }
     }
 }

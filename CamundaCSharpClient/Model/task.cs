@@ -5,25 +5,42 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class task : camundaBase
+    public class task : CamundaBase
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string assignee { get; set; }
-        public string created { get; set; }
-        public object due { get; set; }
-        public object followUp { get; set; }
-        public object delegationState { get; set; }
-        public object description { get; set; }
-        public string executionId { get; set; }
-        public object owner { get; set; }
-        public object parentTaskId { get; set; }
-        public int    priority { get; set; }
-        public string processDefinitionId { get; set; }
-        public string processInstanceId { get; set; }
-        public string taskDefinitionKey { get; set; }
-        public object caseExecutionId { get; set; }
-        public object caseInstanceId { get; set; }
-        public object caseDefinitionId { get; set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Assignee { get; set; }
+
+        public string Created { get; set; }
+
+        public object Due { get; set; }
+
+        public object FollowUp { get; set; }
+
+        public object DelegationState { get; set; }
+
+        public object Description { get; set; }
+
+        public string ExecutionId { get; set; }
+
+        public object Owner { get; set; }
+
+        public object ParentTaskId { get; set; }
+
+        public int Priority { get; set; }
+
+        public string ProcessDefinitionId { get; set; }
+
+        public string ProcessInstanceId { get; set; }
+
+        public string TaskDefinitionKey { get; set; }
+
+        public object CaseExecutionId { get; set; }
+
+        public object CaseInstanceId { get; set; }
+
+        public object CaseDefinitionId { get; set; }
     }
 }

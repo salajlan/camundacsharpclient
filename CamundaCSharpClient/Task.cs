@@ -10,7 +10,7 @@ using CamundaCSharpClient.Query.Task;
 
 namespace CamundaCSharpClient
 {
-    public partial class camundaRestClient
+    public partial class CamundaRestClient
     {        
         public TaskQuery Task()
         {

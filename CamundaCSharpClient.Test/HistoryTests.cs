@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using CamundaCSharpClient.Model;
-    using CamundaCSharpClient.Model.history;
+    using CamundaCSharpClient.Model.History;
     using Moq;
     using NUnit.Framework;
     using RestSharp;
@@ -14,11 +14,11 @@
     public class HistoryTests
     {
         private const string ProcessInstanceId = "37ccd7f9-78c5-11e5-beb3-40a8f0a54b22";
-        private Mock<camundaRestClient> mockClient;
+        private Mock<CamundaRestClient> mockClient;
         [SetUp]
         public void Setup()
         {
-            this.mockClient = new Mock<camundaRestClient>("https://test.dev:8080", "default");
+            this.mockClient = new Mock<CamundaRestClient>("https://test.dev:8080", "default");
             this.mockClient.CallBase = true;
         }
 
@@ -30,7 +30,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new List<HistoricDetails>());
             var client = this.mockClient.Object;
-            client.History().Details().VariableUpdates(true).ProcessInstanceId(ProcessInstanceId).list();
+            client.History().Details().VariableUpdates(true).ProcessInstanceId(ProcessInstanceId).List();
             this.mockClient.Verify(trc => trc.Execute<List<HistoricDetails>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/history/detail", req.Resource);
@@ -48,7 +48,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new Count());
             var client = this.mockClient.Object;
-            client.History().Details().VariableUpdates(true).ProcessInstanceId(ProcessInstanceId).count();
+            client.History().Details().VariableUpdates(true).ProcessInstanceId(ProcessInstanceId).Count();
             this.mockClient.Verify(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/history/detail/count", req.Resource);
@@ -118,7 +118,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new List<HistoryTask>());
             var client = this.mockClient.Object;
-            client.History().Task().ProcessFinished(true).ProcessInstanceId(ProcessInstanceId).list();
+            client.History().Task().ProcessFinished(true).ProcessInstanceId(ProcessInstanceId).List();
             this.mockClient.Verify(trc => trc.Execute<List<HistoryTask>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/history/task", req.Resource);
@@ -136,7 +136,7 @@
                 .Callback<IRestRequest>((request) => req = request)
                 .Returns(new Count());
             var client = this.mockClient.Object;
-            client.History().Task().ProcessFinished(true).ProcessInstanceId(ProcessInstanceId).count();
+            client.History().Task().ProcessFinished(true).ProcessInstanceId(ProcessInstanceId).Count();
             this.mockClient.Verify(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/history/task/count", req.Resource);

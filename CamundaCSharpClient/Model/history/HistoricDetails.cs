@@ -3,24 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model.history
+namespace CamundaCSharpClient.Model.History
 {
-    public class HistoricDetails : camundaBase
+    public class HistoricDetails : CamundaBase
     {
-        public string id { get; set; }
-        public string processInstanceId { get; set; }
-        public string activityInstanceId { get; set; }
-        public string executionId { get; set; }
-        public object caseInstanceId { get; set; }
-        public object caseExecutionId { get; set; }
-        public string time { get; set; }
-        public string variableName { get; set; }
-        public string variableInstanceId { get; set; }
-        public string variableType { get; set; }
-        public string value { get; set; }
-        public int revision { get; set; }
-        public string errorMessage { get; set; }
-        public string fieldId { get; set; }
-        public string fieldValue { get; set; }
+        public string Id { get; set; }
+
+        public string ProcessInstanceId { get; set; }
+
+        public string ActivityInstanceId { get; set; }
+
+        public string ExecutionId { get; set; }
+
+        public object CaseInstanceId { get; set; }
+
+        public object CaseExecutionId { get; set; }
+
+        public string Time { get; set; }
+
+        public string VariableName { get; set; }
+
+        public string VariableInstanceId { get; set; }
+
+        public string VariableType { get; set; }
+
+        public string Value { get; set; }
+
+        public int Revision { get; set; }
+
+        public string ErrorMessage { get; set; }
+
+        public string FieldId { get; set; }
+
+        public string FieldValue { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using CamundaCSharpClient.Query.ProcessInstance;
 
 namespace CamundaCSharpClient
 {
-    public partial class camundaRestClient
+    public partial class CamundaRestClient
     {
         public ProcessInstanceQuery ProcessInstance()
         {

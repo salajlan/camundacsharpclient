@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class Count:camundaBase
+    public class Count : CamundaBase
     {
         public int count { get; set; }
     }
