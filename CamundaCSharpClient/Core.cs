@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.Text.RegularExpressions;
 using RestSharp;
 using RestSharp.Authenticators;
 using CamundaCSharpClient.Helper;
@@ -35,16 +36,33 @@ namespace CamundaCSharpClient
         {
             request.OnBeforeDeserialization = (resp) =>
             {
-                resp.ContentType = "application/json";
                 //// for individual resources when there's an error to make
                 //// sure that RestException props are populated
                 if (((int)resp.StatusCode) >= 400)
                 {
                     // have to read the bytes so .Content doesn't get populated
-                    string restException = "{{ \"RestException\" : {0} }}";
+                    // there is some exception like authorization Handeled By Waffle send the exception as Html
+                    // so we have to handle it by deleting the html tags and add it as message in RestException
+                    string restException;
+                    string str;
+                    var newJson = string.Empty;
                     UTF8Encoding enc = new UTF8Encoding();
-                    string str = enc.GetString(resp.RawBytes);
-                    var newJson = string.Format(restException, str);
+                    if (resp.ContentType != "application/json")
+                    {
+                        restException = "{{ \"RestException\" : {{ \"type\" : \"HtmlFormatException\", \"message\" : \"{0}\" }}, \"StatusCode\" : {1} }}";
+
+                        // override the ContentType to Json because the default deserializer for RESTSharp is XML
+                        resp.ContentType = "application/json";
+                        str = enc.GetString(resp.RawBytes);
+                        newJson = string.Format(restException, ScrubHtml(str), (int)resp.StatusCode);
+                    }
+                    else 
+                    { 
+                        restException = "{{ \"RestException\" : {0}, \"StatusCode\" : {1} }}";
+                        str = enc.GetString(resp.RawBytes);
+                        newJson = string.Format(restException, str, (int)resp.StatusCode);
+                    }
+
                     resp.Content = null;
                     resp.RawBytes = Encoding.UTF8.GetBytes(newJson.ToString());
                 }
@@ -73,6 +91,13 @@ namespace CamundaCSharpClient
         public virtual IRestResponse Execute(IRestRequest request)
         {
             return this._client.Execute(request);
+        }
+
+        protected static string ScrubHtml(string value)
+        {
+            var step1 = Regex.Replace(value, @"<[^>]+>|&nbsp;", string.Empty).Trim();
+            var step2 = Regex.Replace(step1, @"\s{2,}", " ");
+            return step2;
         }
     }
 
