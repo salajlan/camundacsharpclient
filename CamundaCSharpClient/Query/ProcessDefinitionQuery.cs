@@ -320,7 +320,7 @@ namespace CamundaCSharpClient.Query
 
             request.Method = Method.POST;
             object obj = new { variables, this.businessKey, this.caseInstanceId };
-            string output = JsonConvert.SerializeObject(obj);
+            string output = JsonConvert.SerializeObject(obj, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             return Client.Execute<processInstance>(request);
         }
