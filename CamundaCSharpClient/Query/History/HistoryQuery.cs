@@ -13,17 +13,17 @@ namespace CamundaCSharpClient.Query.History
 
         public DetailsQuery Details()
         {
-            return new DetailsQuery(Client);
+            return new DetailsQuery(client);
         }
 
         public HistoryProcessInstanceQuery ProcessInstance()
         {
-            return new HistoryProcessInstanceQuery(Client);
+            return new HistoryProcessInstanceQuery(client);
         }
 
         public HistoryTaskQuery Task()
         {
-            return new HistoryTaskQuery(Client);
+            return new HistoryTaskQuery(client);
         }
     }
 }

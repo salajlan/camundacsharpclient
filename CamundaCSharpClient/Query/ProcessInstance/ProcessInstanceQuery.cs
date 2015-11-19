@@ -80,7 +80,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public GetProcessInstanceQuery Get()
         {
-            return new GetProcessInstanceQuery(Client);
+            return new GetProcessInstanceQuery(client);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             }
 
             request.Method = Method.DELETE;
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -166,7 +166,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
 
             string output = JsonConvert.SerializeObject(this.deserializeValues);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            return Client.Execute<T>(request);
+            return client.Execute<T>(request);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             object obj = new { modifications, deletions };
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -213,7 +213,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(variable);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -256,7 +256,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -275,7 +275,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             this.ensure.NotNull("processInstanceId", this.id);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.id + "/activity-instances";
-            return Client.Execute<ActivityInstance>(request);
+            return client.Execute<ActivityInstance>(request);
         }
     }
 }

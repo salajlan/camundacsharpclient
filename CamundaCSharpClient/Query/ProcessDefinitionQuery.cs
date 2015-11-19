@@ -291,7 +291,7 @@ namespace CamundaCSharpClient.Query
                 request.Resource = "/process-definition/key/" + this.key + "/xml";
             }
 
-            return Client.Execute<ProcessDefinitionXML>(request);
+            return client.Execute<ProcessDefinitionXML>(request);
         }
 
         /// <summary> Instantiates a given process definition.
@@ -322,7 +322,7 @@ namespace CamundaCSharpClient.Query
             object obj = new { variables, this.businessKey, this.caseInstanceId };
             string output = JsonConvert.SerializeObject(obj, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            return Client.Execute<processInstance>(request);
+            return client.Execute<processInstance>(request);
         }
 
         /// <summary> Activate or suspend a given process definition
@@ -352,7 +352,7 @@ namespace CamundaCSharpClient.Query
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
     }

@@ -141,7 +141,7 @@ namespace CamundaCSharpClient.Query
             }
 
             request.Method = Method.DELETE;
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -163,7 +163,7 @@ namespace CamundaCSharpClient.Query
             request.Method = Method.POST;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -186,7 +186,7 @@ namespace CamundaCSharpClient.Query
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
@@ -205,7 +205,7 @@ namespace CamundaCSharpClient.Query
             var request = new RestRequest();
             request.Resource = "/group/" + this.id + "/members/" + this.member;
             request.Method = Method.PUT;
-            var resp = Client.Execute(request);
+            var resp = client.Execute(request);
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
         }
 
