@@ -69,6 +69,7 @@
     <Compile Include="Model\RestException.cs" />
     <Compile Include="Model\task.cs" />
     <Compile Include="Model\taskComment.cs" />
+    <Compile Include="Model\user.cs" />
     <Compile Include="ProcessDefinition.cs" />
     <Compile Include="ProcessInstance.cs" />
     <Compile Include="Query\History\DetailsQuery.cs" />
@@ -83,7 +84,9 @@
     <Compile Include="Query\ProcessDefinitionQuery.cs" />
     <Compile Include="Query\queryBase.cs" />
     <Compile Include="Query\Task\TaskQuery.cs" />
+    <Compile Include="Query\userQuery.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
