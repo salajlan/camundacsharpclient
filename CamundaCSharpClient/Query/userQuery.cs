@@ -122,7 +122,8 @@ namespace CamundaCSharpClient.Query
             request.Resource = "/user/" + this.id;
             request.Method = Method.DELETE;
             var resp = this.client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary>
@@ -181,7 +182,8 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         public NoContentStatus Update(User updatedData)
@@ -195,7 +197,8 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(updatedData);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
     }
 }

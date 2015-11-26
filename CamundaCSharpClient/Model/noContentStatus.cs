@@ -5,9 +5,18 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public enum NoContentStatus
+    public enum TextContentStatus
     {
         Success,
         Failed
+    }
+
+    public class NoContentStatus : CamundaBase
+    {
+        public TextContentStatus TNoContentStatus
+        {
+            get;
+            set;
+        }
     }
 }

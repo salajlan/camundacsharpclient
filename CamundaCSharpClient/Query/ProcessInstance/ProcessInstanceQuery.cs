@@ -129,7 +129,8 @@ namespace CamundaCSharpClient.Query.ProcessInstance
 
             request.Method = Method.DELETE;
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary>
@@ -191,7 +192,8 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary>
@@ -214,7 +216,8 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             string output = JsonConvert.SerializeObject(variable);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary>
@@ -257,7 +260,8 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary>

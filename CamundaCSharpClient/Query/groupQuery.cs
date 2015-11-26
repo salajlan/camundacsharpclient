@@ -142,7 +142,8 @@ namespace CamundaCSharpClient.Query
 
             request.Method = Method.DELETE;
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary> Create a new group.
@@ -164,7 +165,8 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary> Updates a given group.
@@ -187,7 +189,8 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary> Add a member to a group.
@@ -206,7 +209,8 @@ namespace CamundaCSharpClient.Query
             request.Resource = "/group/" + this.id + "/members/" + this.member;
             request.Method = Method.PUT;
             var resp = client.Execute(request);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? NoContentStatus.Success : NoContentStatus.Failed;
+            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
+            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
         /// <summary> Query for groups using a list of parameters and retrieves the count.
