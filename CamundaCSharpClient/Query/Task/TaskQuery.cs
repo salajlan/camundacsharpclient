@@ -17,12 +17,9 @@ namespace CamundaCSharpClient.Query.Task
 
         public TaskQuery(CamundaRestClient client)
             : base(client)
-        {
-            this.client = client;
+        {            
             this.ensure = new EnsureHelper();
         }
-
-        protected CamundaRestClient client { get; set; }        
 
         public TaskQuery Id(string id)
         {
