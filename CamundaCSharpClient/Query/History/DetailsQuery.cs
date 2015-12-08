@@ -99,11 +99,11 @@ namespace CamundaCSharpClient.Query.History
         /// var hi2 = camundaCl.History().Details().ProcessInstanceId("14cc53f0-8067-11e5-ac78-40a8f0a54b22").VariableUpdates(true).list();
         /// </code>
         /// </example>
-        public List<HistoricDetails> List()
+        public List<HistoryDetailsModel> List()
         {
             var request = new RestRequest();
             request.Resource = "/history/detail";
-            return this.List<HistoricDetails>(new QueryHelper().BuildQuery<DetailsQueryModel>(this.model, request));
+            return this.List<HistoryDetailsModel>(new QueryHelper().BuildQuery<DetailsQueryModel>(this.model, request));
         }
 
         /// <summary>

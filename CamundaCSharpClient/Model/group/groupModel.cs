@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model
+namespace CamundaCSharpClient.Model.Group
 {
-    public class Group : CamundaBase
+    public class GroupModel : CamundaBase
     {
         public string id { get; set; }
 

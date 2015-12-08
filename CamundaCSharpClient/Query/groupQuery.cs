@@ -7,6 +7,7 @@ using RestSharp;
 using CamundaCSharpClient.Model;
 using Newtonsoft.Json;
 using CamundaCSharpClient.Helper;
+using CamundaCSharpClient.Model.Group;
 
 namespace CamundaCSharpClient.Query
 {
@@ -78,11 +79,11 @@ namespace CamundaCSharpClient.Query
         /// var gr2 = camundaCl.group().list();
         /// </code>
         /// </example>
-        public List<Group> list()
+        public List<GroupModel> list()
         {
             var request = new RestRequest();
             request.Resource = "/group";
-            return this.List<Group>(new QueryHelper().BuildQuery<GroupQueryModel>(this.model, request));
+            return this.List<GroupModel>(new QueryHelper().BuildQuery<GroupQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves a single group.
@@ -93,12 +94,12 @@ namespace CamundaCSharpClient.Query
         /// var gr9 = camundaCl.group().Id("test").singleResult();
         /// </code>
         /// </example>
-        public Group singleResult()
+        public GroupModel singleResult()
         {
             this.ensure.NotNull("GroupId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/group/" + this.model.id;
-            return this.SingleResult<Group>(request);
+            return this.SingleResult<GroupModel>(request);
         }
 
         /// <summary> Deletes a group by id. or Removes a member from a group.
@@ -139,7 +140,7 @@ namespace CamundaCSharpClient.Query
         /// var gr3 = camundaCl.group().create(m);
         /// </code>
         /// </example>
-        public NoContentStatus Create(Group data)
+        public NoContentStatus Create(GroupModel data)
         {
             this.ensure.NotNull("groupData", data);
             var request = new RestRequest();
@@ -162,7 +163,7 @@ namespace CamundaCSharpClient.Query
         /// var gr8 = camundaCl.group().Id("test").update(m);
         /// </code>
         /// </example>
-        public NoContentStatus Update(Group data)
+        public NoContentStatus Update(GroupModel data)
         {
             this.ensure.NotNull("groupId", this.model.id);
             this.ensure.NotNull("groupData", data);

@@ -274,11 +274,11 @@ namespace CamundaCSharpClient.Query.History
         /// var hi7 = camundaCl.History().Task().Unfinished(true).TaskDueDateAfter(DateTime.Now).list();
         /// </code>
         /// </example>
-        public List<HistoryTask> List()
+        public List<HistoryTaskModel> List()
         {
             var request = new RestRequest();
             request.Resource = "/history/task";
-            return this.List<HistoryTask>(new QueryHelper().BuildQuery<HistoryTaskQueryModel>(this.model, request));
+            return this.List<HistoryTaskModel>(new QueryHelper().BuildQuery<HistoryTaskQueryModel>(this.model, request));
         }
 
         /// <summary>

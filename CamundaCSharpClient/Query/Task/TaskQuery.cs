@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using RestSharp;
 using CamundaCSharpClient.Model;
+using CamundaCSharpClient.Model.Task;
 using CamundaCSharpClient.Helper;
 
 namespace CamundaCSharpClient.Query.Task
@@ -185,12 +186,12 @@ namespace CamundaCSharpClient.Query.Task
         /// var tsk12 = camundaCl.Task().Id("a3d0eeb5-78c4-11e5-beb3-40a8f0a54b22").Comment();
         /// </code>
         /// </example>
-        public List<TaskComment> Comment()
+        public List<TaskCommentModel> Comment()
         {
             this.ensure.NotNull("Id", this.model.id);
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/comment";
-            return this.client.Execute<List<TaskComment>>(request);
+            return this.client.Execute<List<TaskCommentModel>>(request);
         }
 
         /// <summary> Retrieves a single task comment by task id and comment id.
@@ -201,13 +202,13 @@ namespace CamundaCSharpClient.Query.Task
         /// var tsk10 = camundaCl.Task().Id("a3d0eeb5-78c4-11e5-beb3-40a8f0a54b22").Comment("d7a2ea89-7cae-11e5-beb3-40a8f0a54b22");
         /// </code>
         /// </example>
-        public TaskComment Comment(string commentId)
+        public TaskCommentModel Comment(string commentId)
         {
             this.ensure.NotNull("Id", this.model.id);
             this.ensure.NotNull("ComemntId", commentId);
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/comment/" + commentId;
-            return this.client.Execute<TaskComment>(request);
+            return this.client.Execute<TaskCommentModel>(request);
         }
 
         /// <summary> Create a comment for a task.
@@ -219,7 +220,7 @@ namespace CamundaCSharpClient.Query.Task
         /// var tsk11 = camundaCl.Task().Id("a3d0eeb5-78c4-11e5-beb3-40a8f0a54b22").Create("test Comment");
         /// </code>
         /// </example>
-        public TaskComment Create(string comment)
+        public TaskCommentModel Create(string comment)
         {
             this.ensure.NotNull("Id", this.model.id);
             this.ensure.NotNull("commentMessage", comment);
@@ -230,7 +231,7 @@ namespace CamundaCSharpClient.Query.Task
             object obj = new { message = comment };
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            return this.client.Execute<TaskComment>(request);
+            return this.client.Execute<TaskCommentModel>(request);
         }
 
         /// <summary> Query for tasks that fulfill a given filter.
@@ -254,12 +255,12 @@ namespace CamundaCSharpClient.Query.Task
         /// var tsk13 = camundaCl.Task().Id("37ccd7fe-78c5-11e5-beb3-40a8f0a54b22").singleResult();
         /// </code>
         /// </example>
-        public task SingleResult()
+        public TaskModel SingleResult()
         {
             this.ensure.NotNull("Id", this.model.id);
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id;
-            return this.SingleResult<task>(request);
+            return this.SingleResult<TaskModel>(request);
         }
     }
 }

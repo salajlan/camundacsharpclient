@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model.ProcessDefinition
 {
-    public class ProcessDefinition : CamundaBase
+    public class ProcessDefinitionModel : CamundaBase
     {
         public string Id { get; set; }
 

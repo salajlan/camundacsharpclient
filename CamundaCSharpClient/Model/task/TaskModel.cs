@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CamundaCSharpClient.Model
+namespace CamundaCSharpClient.Model.Task
 {
-    public class task : CamundaBase
+    public class TaskModel : CamundaBase
     {
         public string Id { get; set; }
 

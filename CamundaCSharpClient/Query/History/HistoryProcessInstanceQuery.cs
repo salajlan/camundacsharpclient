@@ -189,11 +189,11 @@ namespace CamundaCSharpClient.Query.History
         /// var hi4 = camundaCl.History().ProcessInstance().ProcessDefinitionKey("invoice").StartedBy("salajlan").list();
         /// </code>
         /// </example>
-        public List<HistoryProcessInstance> list()
+        public List<HistoryProcessInstanceModel> list()
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance";
-            return this.List<HistoryProcessInstance>(new QueryHelper().BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
+            return this.List<HistoryProcessInstanceModel>(new QueryHelper().BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -221,12 +221,12 @@ namespace CamundaCSharpClient.Query.History
         /// var hi5 = camundaCl.History().ProcessInstance().ProcessInstanceId("09ece517-77ee-11e5-8af1-40a8f0a54b22").singleResult();
         /// </code>
         /// </example>
-        public HistoryProcessInstance singleResult()
+        public HistoryProcessInstanceModel singleResult()
         {
             new EnsureHelper().NotNull("ProcessInctanceId", this.model.processInstanceId);
             var request = new RestRequest();
             request.Resource = "/history/process-instance/" + this.model.processInstanceId;
-            return this.SingleResult<HistoryProcessInstance>(request);
+            return this.SingleResult<HistoryProcessInstanceModel>(request);
         }
     }
 }

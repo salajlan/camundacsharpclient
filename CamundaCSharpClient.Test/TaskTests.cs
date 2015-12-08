@@ -10,6 +10,7 @@
     using Moq;
     using NUnit.Framework;
     using RestSharp;
+    using CamundaCSharpClient.Model.Task;
 
     [TestFixture]
     public class TaskTests
@@ -256,12 +257,12 @@
         public void Comment_ShouldReturnListOfCommentOnTheTask()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<List<TaskComment>>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<List<TaskCommentModel>>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new List<TaskComment>());
+                .Returns(new List<TaskCommentModel>());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Comment();
-            this.mockClient.Verify(trc => trc.Execute<List<TaskComment>>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<List<TaskCommentModel>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/task/" + TaskId + "/comment", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -273,12 +274,12 @@
         public void Comment_ShouldReturnOneCommentOnTheTask()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new TaskComment());
+                .Returns(new TaskCommentModel());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Comment(CommentId);
-            this.mockClient.Verify(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreNotEqual("/task/" + TaskId + "/comment", req.Resource);
             Assert.AreEqual("/task/" + TaskId + "/comment/" + CommentId, req.Resource);
@@ -291,12 +292,12 @@
         public void Comment_ShouldThrowArgumentNullException_WhenTaskIdIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<List<TaskComment>>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<List<TaskCommentModel>>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new List<TaskComment>());
+                .Returns(new List<TaskCommentModel>());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Comment();
-            this.mockClient.Verify(trc => trc.Execute<List<TaskComment>>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<List<TaskCommentModel>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.AreEqual("/task/" + TaskId + "/comment", req.Resource);
             Assert.Throws<ArgumentNullException>(delegate { client.Task().Comment(); });
         }
@@ -305,12 +306,12 @@
         public void Comment_ShouldThrowArgumentNullException_WhenCommentIdIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new TaskComment());
+                .Returns(new TaskCommentModel());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Comment(CommentId);
-            this.mockClient.Verify(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.AreNotEqual("/task/" + TaskId + "/comment", req.Resource);
             Assert.AreEqual("/task/" + TaskId + "/comment/" + CommentId, req.Resource);
             Assert.Throws<ArgumentNullException>(delegate { client.Task().Id(TaskId).Comment(null); });
@@ -320,12 +321,12 @@
         public void Create_ShouldCreateCommentOnTheTask()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new TaskComment());
+                .Returns(new TaskCommentModel());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Create(Comment);
-            this.mockClient.Verify(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/task/" + TaskId + "/comment/create", req.Resource);
             Assert.AreEqual(Method.POST, req.Method);
@@ -337,12 +338,12 @@
         public void Create_ShouldThrowArgumentNullException_WhenCommentMessageOrTaskIdIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new TaskComment());
+                .Returns(new TaskCommentModel());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Create(Comment);
-            this.mockClient.Verify(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.AreEqual("/task/" + TaskId + "/comment/create", req.Resource);
             Assert.Throws<ArgumentNullException>(delegate { client.Task().Id(TaskId).Create(null); });
             Assert.Throws<ArgumentNullException>(delegate { client.Task().Create(Comment); });
@@ -352,12 +353,12 @@
         public void SingleResult_ShouldGetOneTask()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<task>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<TaskModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new task());
+                .Returns(new TaskModel());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).SingleResult();
-            this.mockClient.Verify(trc => trc.Execute<task>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<TaskModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/task/" + TaskId, req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -369,12 +370,12 @@
         public void SingleResult_ShouldThrowArgumentNullException_WhenCommentMessageOrTaskIdIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new TaskComment());
+                .Returns(new TaskCommentModel());
             var client = this.mockClient.Object;
             client.Task().Id(TaskId).Create(Comment);
-            this.mockClient.Verify(trc => trc.Execute<TaskComment>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<TaskCommentModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.AreEqual("/task/" + TaskId + "/comment/create", req.Resource);
             Assert.Throws<ArgumentNullException>(delegate { client.Task().Id(TaskId).Create(null); });
             Assert.Throws<ArgumentNullException>(delegate { client.Task().Create(Comment); });
@@ -384,12 +385,12 @@
         public void GetList_ShouldReturnListOfTasks()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<List<task>>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<List<TaskModel>>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new List<task>());
+                .Returns(new List<TaskModel>());
             var client = this.mockClient.Object;
             client.Task().Get().Active(true).FollowUpDate(DateTime.Now).list();
-            this.mockClient.Verify(trc => trc.Execute<List<task>>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<List<TaskModel>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.AreEqual("/task", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
             Assert.AreEqual(2, req.Parameters.Count); 

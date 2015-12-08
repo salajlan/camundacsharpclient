@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model.History
 {
-    public class HistoricDetails : CamundaBase
+    public class HistoryDetailsModel : CamundaBase
     {
         public string Id { get; set; }
 

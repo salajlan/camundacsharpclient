@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model
 {
-    public class ActivityInstance : CamundaBase
+    public class ActivityInstanceModel : CamundaBase
     {
         public string Id { get; set; }
 
@@ -19,7 +19,7 @@ namespace CamundaCSharpClient.Model
 
         public string ProcessDefinitionId { get; set; }
 
-        public List<ActivityInstance> ChildActivityInstances { get; set; }
+        public List<ActivityInstanceModel> ChildActivityInstances { get; set; }
 
         public List<object> ChildTransitionInstances { get; set; }
 

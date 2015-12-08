@@ -5,6 +5,7 @@ using System.Text;
 using CamundaCSharpClient.Model;
 using CamundaCSharpClient.Helper;
 using RestSharp;
+using CamundaCSharpClient.Model.Task;
 
 namespace CamundaCSharpClient.Query.Task
 {
@@ -434,11 +435,11 @@ namespace CamundaCSharpClient.Query.Task
         /// var tsk3 = camundaCl.Task().Get().ProcessInstanceId("37ccd7f9-78c5-11e5-beb3-40a8f0a54b22").list();
         /// </code>
         /// </example>
-        public List<task> list()
+        public List<TaskModel> list()
         {
             var request = new RestRequest();
             request.Resource = "/task";
-            return this.List<task>(new QueryHelper().BuildQuery<GetTaskQueryModel>(this.model, request));
+            return this.List<TaskModel>(new QueryHelper().BuildQuery<GetTaskQueryModel>(this.model, request));
         }
 
         /// <summary> Get the number of tasks that fulfill a provided filter.

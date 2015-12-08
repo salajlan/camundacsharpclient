@@ -7,6 +7,7 @@ using CamundaCSharpClient.Helper;
 using RestSharp;
 using Newtonsoft.Json;
 using CamundaCSharpClient.Model.ProcessDefinition;
+using CamundaCSharpClient.Model.ProcessInstance;
 
 namespace CamundaCSharpClient.Query
 {
@@ -174,11 +175,11 @@ namespace CamundaCSharpClient.Query
         /// var pd1 = camundaCl.ProcessDefinition().Suspended(false).list();
         /// </code>
         /// </example>
-        public List<ProcessDefinition> list()
+        public List<ProcessDefinitionModel> list()
         {
             var request = new RestRequest();
             request.Resource = "/process-definition";
-            return this.List<ProcessDefinition>(new QueryHelper().BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
+            return this.List<ProcessDefinitionModel>(new QueryHelper().BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves a single process definition according to the ProcessDefinition interface in the engine.
@@ -189,7 +190,7 @@ namespace CamundaCSharpClient.Query
         /// var pd7 = camundaCl.ProcessDefinition().Key("invoice").singleResult();
         /// </code>
         /// </example>
-        public ProcessDefinition singleResult()
+        public ProcessDefinitionModel singleResult()
         {
             var request = new RestRequest();
             if (this.model.id != null) 
@@ -202,7 +203,7 @@ namespace CamundaCSharpClient.Query
                 request.Resource = "/process-definition/key/" + this.model.key;
             }
 
-            return this.SingleResult<ProcessDefinition>(request);
+            return this.SingleResult<ProcessDefinitionModel>(request);
         }
 
         /// <summary> Request the number of process definitions that fulfill the query criteria
@@ -229,7 +230,7 @@ namespace CamundaCSharpClient.Query
         /// var pd4 = camundaCl.ProcessDefinition().Id("invoice:1:54302a7a-7736-11e5-bc04-40a8f0a54b22").Xml();
         /// </code>
         /// </example>
-        public ProcessDefinitionXML Xml()
+        public ProcessDefinitionXMLModel Xml()
         {
             var request = new RestRequest();
             if (this.model.id != null) 
@@ -242,7 +243,7 @@ namespace CamundaCSharpClient.Query
                 request.Resource = "/process-definition/key/" + this.model.key + "/xml";
             }
 
-            return client.Execute<ProcessDefinitionXML>(request);
+            return client.Execute<ProcessDefinitionXMLModel>(request);
         }
 
         /// <summary> Instantiates a given process definition.
@@ -255,7 +256,7 @@ namespace CamundaCSharpClient.Query
         /// var pd5 = camundaCl.ProcessDefinition().Key("invoice").BusinessKey("hi").start<invoice.CommunicationRootObject>(d);
         /// </code>
         /// </example>
-        public processInstance Start<T>(T variables)
+        public processInstanceModel Start<T>(T variables)
         {
             this.ensure.NotNull("processDefinitionVariables", variables);
             var request = new RestRequest();
@@ -273,7 +274,7 @@ namespace CamundaCSharpClient.Query
             object obj = new { variables, this.model.businessKey, this.model.caseInstanceId };
             string output = JsonConvert.SerializeObject(obj, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            return client.Execute<processInstance>(request);
+            return client.Execute<processInstanceModel>(request);
         }
 
         /// <summary> Activate or suspend a given process definition
@@ -286,7 +287,7 @@ namespace CamundaCSharpClient.Query
         /// var pd6 = camundaCl.ProcessDefinition().Key("invoice").Suspend(pr);
         /// </code>
         /// </example>
-        public NoContentStatus Suspend(ProcessDefinitionSuspend data)
+        public NoContentStatus Suspend(ProcessDefinitionSuspendModel data)
         {
             this.ensure.NotNull("processDefinitionSuspend data", data);
             var request = new RestRequest();

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model.ProcessDefinition
 {
-    public class ProcessDefinitionSuspend : CamundaBase
+    public class ProcessDefinitionSuspendModel : CamundaBase
     {
         public bool Suspended { get; set; }
 

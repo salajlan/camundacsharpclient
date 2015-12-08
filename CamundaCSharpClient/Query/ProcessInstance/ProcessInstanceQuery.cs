@@ -6,6 +6,7 @@ using CamundaCSharpClient.Helper;
 using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
+using CamundaCSharpClient.Model.ProcessInstance;
 
 namespace CamundaCSharpClient.Query.ProcessInstance
 {
@@ -81,12 +82,12 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// var pi = camundaCl.ProcessInstance().Id("a0efef43-7d51-11e5-beb3-40a8f0a54b22").SingleResult();
         /// </code>
         /// </example>
-        public processInstance SingleResult()
+        public processInstanceModel SingleResult()
         {
             this.ensure.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.model.id;
-            return base.SingleResult<processInstance>(request);
+            return base.SingleResult<processInstanceModel>(request);
         }
 
         /// <summary>Deletes a running process instance. or Deletes a variable of a given process instance.
@@ -263,12 +264,12 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </code>
         /// </example>
         /// <returns>activityInstance</returns>
-        public ActivityInstance ActivityInstance()
+        public ActivityInstanceModel ActivityInstance()
         {
             this.ensure.NotNull("processInstanceId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.model.id + "/activity-instances";
-            return client.Execute<ActivityInstance>(request);
+            return client.Execute<ActivityInstanceModel>(request);
         }
     }
 }

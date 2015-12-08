@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CamundaCSharpClient.Model.History
 {
-    public class HistoryProcessInstance : CamundaBase
+    public class HistoryProcessInstanceModel : CamundaBase
     {
         public string BusinessKey { get; set; }
 

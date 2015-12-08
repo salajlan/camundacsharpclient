@@ -10,11 +10,12 @@
     using Moq;
     using NUnit.Framework;
     using RestSharp;
+    using CamundaCSharpClient.Model.Task;
 
     [TestFixture]
     public class UserTests
     {
-        private User userInfo = new User() { email = "test@test.com", firstName = "Sulaiman", id = "salajlan", lastName = "Alajlan" };
+        private UserModel userInfo = new UserModel() { email = "test@test.com", firstName = "Sulaiman", id = "salajlan", lastName = "Alajlan" };
         private Mock<CamundaRestClient> mockClient;
         [SetUp]
         public void Setup()
@@ -60,12 +61,12 @@
         public void Profile_ShouldGetProfileUser()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<User>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<UserModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new User());
+                .Returns(new UserModel());
             var client = this.mockClient.Object;
             client.User().Id(this.userInfo.id).Profile();
-            this.mockClient.Verify(trc => trc.Execute<User>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<UserModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/user/" + this.userInfo.id + "/profile", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -77,12 +78,12 @@
         public void Profile_ShouldThrowArgumentNullException_WhenUserIdIsMissing()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<User>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<UserModel>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new User());
+                .Returns(new UserModel());
             var client = this.mockClient.Object;
             client.User().Id(this.userInfo.id).Profile();
-            this.mockClient.Verify(trc => trc.Execute<User>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<UserModel>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/user/" + this.userInfo.id + "/profile", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);
@@ -93,12 +94,12 @@
         public void List_ShouldGetListOfUsers()
         {
             IRestRequest req = null;
-            this.mockClient.Setup(trc => trc.Execute<List<User>>(It.IsAny<IRestRequest>()))
+            this.mockClient.Setup(trc => trc.Execute<List<UserModel>>(It.IsAny<IRestRequest>()))
                 .Callback<IRestRequest>((request) => req = request)
-                .Returns(new List<User>());
+                .Returns(new List<UserModel>());
             var client = this.mockClient.Object;
             client.User().Id(this.userInfo.id).FirstName(this.userInfo.firstName).list();
-            this.mockClient.Verify(trc => trc.Execute<List<User>>(It.IsAny<IRestRequest>()), Times.Once);
+            this.mockClient.Verify(trc => trc.Execute<List<UserModel>>(It.IsAny<IRestRequest>()), Times.Once);
             Assert.IsNotNull(req);
             Assert.AreEqual("/user", req.Resource);
             Assert.AreEqual(Method.GET, req.Method);

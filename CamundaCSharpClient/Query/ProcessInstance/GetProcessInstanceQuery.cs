@@ -5,6 +5,7 @@ using System.Text;
 using CamundaCSharpClient.Model;
 using CamundaCSharpClient.Helper;
 using RestSharp;
+using CamundaCSharpClient.Model.ProcessInstance;
 
 namespace CamundaCSharpClient.Query.ProcessInstance
 {
@@ -138,11 +139,11 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             return this;
         }        
 
-        public List<processInstance> list()
+        public List<processInstanceModel> list()
         {
             var request = new RestRequest();
             request.Resource = "/process-instance";
-            return this.List<processInstance>(new QueryHelper().BuildQuery<GetProcessInstanceQueryModel>(this.model, request));
+            return this.List<processInstanceModel>(new QueryHelper().BuildQuery<GetProcessInstanceQueryModel>(this.model, request));
         }
 
         public Count count()

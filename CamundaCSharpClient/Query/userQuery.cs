@@ -6,6 +6,7 @@ using CamundaCSharpClient.Helper;
 using CamundaCSharpClient.Model;
 using RestSharp;
 using Newtonsoft.Json;
+using CamundaCSharpClient.Model.Task;
 
 namespace CamundaCSharpClient.Query
 {
@@ -107,26 +108,26 @@ namespace CamundaCSharpClient.Query
         /// Retrieves a single user's profile.
         /// </summary>
         /// <returns>User</returns>
-        public User Profile()
+        public UserModel Profile()
         {
             this.ensure.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
             request.Resource = "/user/" + this.model.id + "/profile";
             request.Method = Method.GET;
-            return this.SingleResult<User>(request);
+            return this.SingleResult<UserModel>(request);
         }
 
         /// <summary>
         /// Query for a list of users using a list of parameters. The size of the result set can be retrieved by using the get users count method.
         /// </summary>
         /// <returns>List<User></returns>
-        public List<User> list()
+        public List<UserModel> list()
         {
             var request = new RestRequest();
             request.Resource = "/user";
             request = new QueryHelper().BuildQuery<UserQueryModel>(this.model, request);
-            return this.List<User>(request);
+            return this.List<UserModel>(request);
         }
 
         /// <summary>
@@ -147,7 +148,7 @@ namespace CamundaCSharpClient.Query
         /// <param name="userData"> user data to create </param>
         /// <param name="password"> pass </param>
         /// <returns>NoContentStatus</returns>
-        public NoContentStatus Create(User userData, string password)
+        public NoContentStatus Create(UserModel userData, string password)
         {
             this.ensure.NotNull("UserData", userData);
             this.ensure.NotNull("password", password);
@@ -163,7 +164,7 @@ namespace CamundaCSharpClient.Query
             return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
         }
 
-        public NoContentStatus Update(User updatedData)
+        public NoContentStatus Update(UserModel updatedData)
         {
             this.ensure.NotNull("UserId", this.model.id);
             this.ensure.NotNull("UserData", updatedData);
