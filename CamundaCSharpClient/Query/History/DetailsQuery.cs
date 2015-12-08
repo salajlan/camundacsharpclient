@@ -11,106 +11,82 @@ namespace CamundaCSharpClient.Query.History
 {
     public class DetailsQuery : QueryBase
     {
+        private DetailsQueryModel model = new DetailsQueryModel();
+
         public DetailsQuery(CamundaRestClient client) : base(client)
         { 
-        }
-
-        protected string processInstanceId { get; set; }
-
-        protected string activityInstanceId { get; set; }
-
-        protected string executionId { get; set; }
-
-        protected string caseInstanceId { get; set; }
-
-        protected string caseExecutionId { get; set; }
-
-        protected string variableInstanceId { get; set; }
-
-        protected string formFields { get; set; }
-
-        protected string variableUpdates { get; set; }
-
-        protected string excludeTaskDetails { get; set; }
-
-        protected string sortBy { get; set; }
-
-        protected string sortOrder { get; set; }
-
-        protected int? firstResult { get; set; }
-
-        protected int? maxResults { get; set; }
+        }        
         
         public DetailsQuery ProcessInstanceId(string processInstanceId)
         {
-            this.processInstanceId = processInstanceId;
+            this.model.processInstanceId = processInstanceId;
             return this;
         }
 
         public DetailsQuery ActivityInstanceId(string activityInstanceId)
         {
-            this.activityInstanceId = activityInstanceId;
+            this.model.activityInstanceId = activityInstanceId;
             return this;
         }
 
         public DetailsQuery ExecutionId(string executionId)
         {
-            this.executionId = executionId;
+            this.model.executionId = executionId;
             return this;
         }
 
         public DetailsQuery CaseInstanceId(string caseInstanceId)
         {
-            this.caseInstanceId = caseInstanceId;
+            this.model.caseInstanceId = caseInstanceId;
             return this;
         }
 
         public DetailsQuery CaseExecutionId(string caseExecutionId)
         {
-            this.caseExecutionId = caseExecutionId;
+            this.model.caseExecutionId = caseExecutionId;
             return this;
         }
 
         public DetailsQuery VariableInstanceId(string variableInstanceId)
         {
-            this.variableInstanceId = variableInstanceId;
+            this.model.variableInstanceId = variableInstanceId;
             return this;
         }
 
         public DetailsQuery FormFields(bool formFields)
         {
-            this.formFields = formFields.ToString().ToLower();
+            this.model.formFields = formFields.ToString().ToLower();
             return this;
         }
 
         public DetailsQuery VariableUpdates(bool variableUpdates)
         {
-            this.variableUpdates = variableUpdates.ToString().ToLower();
+            this.model.variableUpdates = variableUpdates.ToString().ToLower();
             return this;
         }
 
         public DetailsQuery ExcludeTaskDetails(bool excludeTaskDetails)
         {
-            this.excludeTaskDetails = excludeTaskDetails.ToString().ToLower();
+            this.model.excludeTaskDetails = excludeTaskDetails.ToString().ToLower();
             return this;
         }
 
         public DetailsQuery SortByNsortOrder(string sortBy, string sortOrder)
         {
-            this.sortBy = sortBy;
-            this.sortOrder = sortOrder;
+            this.model.sortBy = sortBy;
+            this.model.sortOrder = sortOrder;
             return this;
         }
 
         public DetailsQuery FirstResult(int firstResult)
         {
-            this.firstResult = firstResult;
+            this.model.firstResult = firstResult;
             return this;
         }
 
         public DetailsQuery MaxResults(int maxResults)
         {
-            this.maxResults = maxResults;
+            this.model.maxResults = maxResults;
             return this;
         }
 
@@ -127,7 +103,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/detail";
-            return this.List<HistoricDetails>(new QueryHelper().BuildQuery<DetailsQuery>(this, request));
+            return this.List<HistoricDetails>(new QueryHelper().BuildQuery<DetailsQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -144,7 +120,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/detail/count";
-            return this.Count(new QueryHelper().BuildQuery<DetailsQuery>(this, request));
+            return this.Count(new QueryHelper().BuildQuery<DetailsQueryModel>(this.model, request));
         }
     }
 }

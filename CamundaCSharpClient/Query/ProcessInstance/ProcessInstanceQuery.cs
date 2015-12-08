@@ -12,58 +12,47 @@ namespace CamundaCSharpClient.Query.ProcessInstance
     public class ProcessInstanceQuery : QueryBase
     {
         private EnsureHelper ensure = null;
+        private ProcessInstanceQueryModel model = new ProcessInstanceQueryModel();
 
         public ProcessInstanceQuery(CamundaRestClient client)
             : base(client)
         {
             this.ensure = new EnsureHelper();
-        }
-
-        protected string id { get; set; }
-
-        protected string varId { get; set; }
-
-        protected string deserializeValues { get; set; }
-
-        protected string suspended { get; set; }
-
-        protected string processDefinitionId { get; set; }
-
-        protected string processDefinitionKey { get; set; }        
+        }                
 
         public ProcessInstanceQuery Id(string id)
         {
-            this.id = id;
+            this.model.id = id;
             return this;
         }
 
         public ProcessInstanceQuery VarId(string varId)
         {
-            this.varId = varId;
+            this.model.varId = varId;
             return this;
         }
 
         public ProcessInstanceQuery DeserializeValues(bool deserializeValues)
         {
-            this.deserializeValues = deserializeValues.ToString().ToLower();
+            this.model.deserializeValues = deserializeValues.ToString().ToLower();
             return this;
         }
 
         public ProcessInstanceQuery ProcessDefinitionId(string processDefinitionId)
         {
-            this.processDefinitionId = processDefinitionId;
+            this.model.processDefinitionId = processDefinitionId;
             return this;
         }
 
         public ProcessInstanceQuery ProcessDefinitionKey(string processDefinitionKey)
         {
-            this.processDefinitionKey = processDefinitionKey;
+            this.model.processDefinitionKey = processDefinitionKey;
             return this;
         }
 
         public ProcessInstanceQuery Suspended(bool suspended)
         {
-            this.suspended = suspended.ToString().ToLower();
+            this.model.suspended = suspended.ToString().ToLower();
             return this;
         }        
 
@@ -94,9 +83,9 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public processInstance SingleResult()
         {
-            this.ensure.NotNull("ProcessInstanceId", this.id);
+            this.ensure.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
-            request.Resource = "/process-instance/" + this.id;
+            request.Resource = "/process-instance/" + this.model.id;
             return base.SingleResult<processInstance>(request);
         }
 
@@ -116,15 +105,15 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public NoContentStatus Delete()
         {
-            this.ensure.NotNull("ProcessInstanceId", this.id);
+            this.ensure.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
-            if (this.varId != null)
+            if (this.model.varId != null)
             {
-                request.Resource = "/process-instance/" + this.id + "/variables/" + this.varId;
+                request.Resource = "/process-instance/" + this.model.id + "/variables/" + this.model.varId;
             }
             else
             {
-                request.Resource = "/process-instance/" + this.id; 
+                request.Resource = "/process-instance/" + this.model.id; 
             }
 
             request.Method = Method.DELETE;
@@ -154,18 +143,18 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public T Variables<T>() where T : new()
         {
-            this.ensure.NotNull("ProcessInstanceId", this.id);
+            this.ensure.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
-            if (this.varId != null)
+            if (this.model.varId != null)
             {
-                request.Resource = "/process-instance/" + this.id + "/variables/" + this.varId;
+                request.Resource = "/process-instance/" + this.model.id + "/variables/" + this.model.varId;
             }
             else
             {
-                request.Resource = "/process-instance/" + this.id + "/variables";
+                request.Resource = "/process-instance/" + this.model.id + "/variables";
             }
 
-            string output = JsonConvert.SerializeObject(this.deserializeValues);
+            string output = JsonConvert.SerializeObject(this.model.deserializeValues);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             return client.Execute<T>(request);
         }
@@ -184,9 +173,9 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public NoContentStatus Variables<T>(T modifications, string[] deletions)
         {
-            this.ensure.NotNull("ProcessInstanceId", this.id);
+            this.ensure.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
-            request.Resource = "/process-instance/" + this.id + "/variables";
+            request.Resource = "/process-instance/" + this.model.id + "/variables";
             request.Method = Method.POST;
             object obj = new { modifications, deletions };
             string output = JsonConvert.SerializeObject(obj);
@@ -207,11 +196,11 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public NoContentStatus Variables<T>(T variable)
         {
-            this.ensure.NotNull("ProcessInstanceId", this.id);
+            this.ensure.NotNull("ProcessInstanceId", this.model.id);
             this.ensure.NotNull("variableData", variable);
-            this.ensure.NotNull("varId", this.varId);
+            this.ensure.NotNull("varId", this.model.varId);
             var request = new RestRequest();
-            request.Resource = "/process-instance/" + this.id + "/variables/" + this.varId;
+            request.Resource = "/process-instance/" + this.model.id + "/variables/" + this.model.varId;
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(variable);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
@@ -236,24 +225,24 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// <returns>noContentStatus</returns>
         public NoContentStatus Suspend()
         {
-            this.ensure.NotNull("Suspended", this.suspended);
+            this.ensure.NotNull("Suspended", this.model.suspended);
             object obj;
             var request = new RestRequest();
             request.Resource = "/process-instance/suspended";
-            if (this.id != null)
+            if (this.model.id != null)
             {
-                request.Resource = "/process-instance/" + this.id + "/suspended";
-                obj = new { this.suspended };
+                request.Resource = "/process-instance/" + this.model.id + "/suspended";
+                obj = new { this.model.suspended };
             }
-            else if (this.processDefinitionId == null)
+            else if (this.model.processDefinitionId == null)
             {
-                this.ensure.NotNull("processDefinitionKey", this.processDefinitionKey);
-                obj = new { this.processDefinitionKey, this.suspended };
+                this.ensure.NotNull("processDefinitionKey", this.model.processDefinitionKey);
+                obj = new { this.model.processDefinitionKey, this.model.suspended };
             }
             else
             {
-                this.ensure.NotNull("processDefinitionId", this.processDefinitionId);
-                obj = new { this.processDefinitionId, this.suspended };
+                this.ensure.NotNull("processDefinitionId", this.model.processDefinitionId);
+                obj = new { this.model.processDefinitionId, this.model.suspended };
             }
 
             request.Method = Method.PUT;
@@ -276,9 +265,9 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// <returns>activityInstance</returns>
         public ActivityInstance ActivityInstance()
         {
-            this.ensure.NotNull("processInstanceId", this.id);
+            this.ensure.NotNull("processInstanceId", this.model.id);
             var request = new RestRequest();
-            request.Resource = "/process-instance/" + this.id + "/activity-instances";
+            request.Resource = "/process-instance/" + this.model.id + "/activity-instances";
             return client.Execute<ActivityInstance>(request);
         }
     }

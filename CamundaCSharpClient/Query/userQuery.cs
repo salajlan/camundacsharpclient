@@ -12,6 +12,7 @@ namespace CamundaCSharpClient.Query
     public class UserQuery : QueryBase
     {
         private EnsureHelper ensure = null;
+        private UserQueryModel model = new UserQueryModel();
 
         public UserQuery(CamundaRestClient client)
             : base(client)
@@ -19,94 +20,70 @@ namespace CamundaCSharpClient.Query
             this.ensure = new EnsureHelper();
         }
 
-        protected string id { get; set; }
-
-        protected string firstName { get; set; }
-
-        protected string firstNameLike { get; set; }
-
-        protected string lastName { get; set; }
-
-        protected string lastNameLike { get; set; }
-
-        protected string email { get; set; }
-
-        protected string emailLike { get; set; }
-
-        protected string memberOfGroup { get; set; }
-
-        protected string sortBy { get; set; }
-
-        protected string sortOrder { get; set; }
-
-        protected int? firstResult { get; set; }
-
-        protected int? maxResults { get; set; }
-
         public UserQuery Id(string id)
         {
-            this.id = id;
+            this.model.id = id;
             return this;
         }
 
         public UserQuery FirstName(string firstName)
         {
-            this.firstName = firstName;
+            this.model.firstName = firstName;
             return this;
         }
 
         public UserQuery FirstNameLike(string firstNameLike)
         {
-            this.firstNameLike = firstNameLike;
+            this.model.firstNameLike = firstNameLike;
             return this;
         }
 
         public UserQuery LastName(string lastName)
         {
-            this.lastName = lastName;
+            this.model.lastName = lastName;
             return this;
         }
 
         public UserQuery LastNameLike(string lastNameLike)
         {
-            this.lastNameLike = lastNameLike;
+            this.model.lastNameLike = lastNameLike;
             return this;
         }
 
         public UserQuery Email(string email)
         {
-            this.email = email;
+            this.model.email = email;
             return this;
         }
 
         public UserQuery EmailLike(string emailLike)
         {
-            this.emailLike = emailLike;
+            this.model.emailLike = emailLike;
             return this;
         }
 
         public UserQuery MemberOfGroup(string memberOfGroup)
         {
-            this.memberOfGroup = memberOfGroup;
+            this.model.memberOfGroup = memberOfGroup;
             return this;
         }
 
         public UserQuery sortByNSortOrder(string sortBy, string sortOrder)
         {
-            this.sortBy = sortBy;
-            this.sortOrder = sortOrder;
+            this.model.sortBy = sortBy;
+            this.model.sortOrder = sortOrder;
             return this;
         }
 
         public UserQuery FirstResult(int firstResult)
         {
-            this.firstResult = firstResult;
+            this.model.firstResult = firstResult;
             return this;
         }
 
         public UserQuery MaxResults(int maxResults)
         {
-            this.maxResults = maxResults;
+            this.model.maxResults = maxResults;
             return this;
         }
         
@@ -116,10 +93,10 @@ namespace CamundaCSharpClient.Query
         /// <returns>NoContentStatus</returns>
         public NoContentStatus Delete()
         {
-            this.ensure.NotNull("Id", this.id);
+            this.ensure.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
-            request.Resource = "/user/" + this.id;
+            request.Resource = "/user/" + this.model.id;
             request.Method = Method.DELETE;
             var resp = this.client.Execute(request);
             var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
@@ -132,10 +109,10 @@ namespace CamundaCSharpClient.Query
         /// <returns>User</returns>
         public User Profile()
         {
-            this.ensure.NotNull("Id", this.id);
+            this.ensure.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
-            request.Resource = "/user/" + this.id + "/profile";
+            request.Resource = "/user/" + this.model.id + "/profile";
             request.Method = Method.GET;
             return this.SingleResult<User>(request);
         }
@@ -148,7 +125,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/user";
-            request = new QueryHelper().BuildQuery<UserQuery>(this, request);
+            request = new QueryHelper().BuildQuery<UserQueryModel>(this.model, request);
             return this.List<User>(request);
         }
 
@@ -160,7 +137,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/user/count";
-            request = new QueryHelper().BuildQuery<UserQuery>(this, request);
+            request = new QueryHelper().BuildQuery<UserQueryModel>(this.model, request);
             return this.Count(request);
         }
 
@@ -188,11 +165,11 @@ namespace CamundaCSharpClient.Query
 
         public NoContentStatus Update(User updatedData)
         {
-            this.ensure.NotNull("UserId", this.id);
+            this.ensure.NotNull("UserId", this.model.id);
             this.ensure.NotNull("UserData", updatedData);
 
             var request = new RestRequest();
-            request.Resource = "/user/" + this.id + "/profile";
+            request.Resource = "/user/" + this.model.id + "/profile";
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(updatedData);
             request.AddParameter("application/json", output, ParameterType.RequestBody);

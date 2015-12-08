@@ -13,77 +13,60 @@ namespace CamundaCSharpClient.Query
     public class GroupQuery : QueryBase
     {
         private EnsureHelper ensure = null;
+        private GroupQueryModel model = new GroupQueryModel();
 
         public GroupQuery(CamundaRestClient client)
             : base(client)
         {
             this.ensure = new EnsureHelper();
-        }
-
-        protected string nameLike { get; set; }
-
-        protected string name { get; set; }
-
-        protected string id { get; set; }
-
-        protected string type { get; set; }
-
-        protected string member { get; set; }
-
-        protected int? maxResults { get; set; }
-
-        protected int? firstResult { get; set; }
-
-        protected string sortBy { get; set; }
-
-        protected string sortOrder { get; set; }
+        }        
 
         public GroupQuery Id(string id)
         {
-            this.id = id;
+            this.model.id = id;
             return this;
         }
 
         public GroupQuery NameLike(string nameLike)
         {
-            this.nameLike = nameLike;
+            this.model.nameLike = nameLike;
             return this;
         }
 
         public GroupQuery Name(string name)
         {
-            this.name = name;
+            this.model.name = name;
             return this;
         }
 
         public GroupQuery Type(string type)
         {
-            this.type = type;
+            this.model.type = type;
             return this;
         }
 
         public GroupQuery Member(string member)
         {
-            this.member = member;
+            this.model.member = member;
             return this;
         }
 
         public GroupQuery MaxResults(int maxResults)
         {
-            this.maxResults = maxResults;
+            this.model.maxResults = maxResults;
             return this;
         }
 
         public GroupQuery FirstResult(int firstResult)
         {
-            this.firstResult = firstResult;
+            this.model.firstResult = firstResult;
             return this;
         }
 
         public GroupQuery SortByAndSortOrder(string sortBy, string sortOrder)
         {
-            this.sortBy = sortBy;
-            this.sortOrder = sortOrder;
+            this.model.sortBy = sortBy;
+            this.model.sortOrder = sortOrder;
             return this;
         }
 
@@ -99,7 +82,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/group";
-            return this.List<Group>(new QueryHelper().BuildQuery<GroupQuery>(this, request));
+            return this.List<Group>(new QueryHelper().BuildQuery<GroupQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves a single group.
@@ -112,9 +95,9 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public Group singleResult()
         {
-            this.ensure.NotNull("GroupId", this.id);
+            this.ensure.NotNull("GroupId", this.model.id);
             var request = new RestRequest();
-            request.Resource = "/group/" + this.id;
+            request.Resource = "/group/" + this.model.id;
             return this.SingleResult<Group>(request);
         }
 
@@ -129,15 +112,15 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Delete()
         {
-            this.ensure.NotNull("GroupId", this.id);
+            this.ensure.NotNull("GroupId", this.model.id);
             var request = new RestRequest();
-            if (this.member != null)
+            if (this.model.member != null)
             {
-                request.Resource = "/group/" + this.id + "/members/" + this.member;
+                request.Resource = "/group/" + this.model.id + "/members/" + this.model.member;
             }
             else 
-            { 
-                request.Resource = "/group/" + this.id;
+            {
+                request.Resource = "/group/" + this.model.id;
             }
 
             request.Method = Method.DELETE;
@@ -181,10 +164,10 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Update(Group data)
         {
-            this.ensure.NotNull("groupId", this.id);
+            this.ensure.NotNull("groupId", this.model.id);
             this.ensure.NotNull("groupData", data);
             var request = new RestRequest();
-            request.Resource = "/group/" + this.id;
+            request.Resource = "/group/" + this.model.id;
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
@@ -203,10 +186,10 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Create()
         {
-            this.ensure.NotNull("groupId", this.id);
-            this.ensure.NotNull("groupMemeber", this.member);
+            this.ensure.NotNull("groupId", this.model.id);
+            this.ensure.NotNull("groupMemeber", this.model.member);
             var request = new RestRequest();
-            request.Resource = "/group/" + this.id + "/members/" + this.member;
+            request.Resource = "/group/" + this.model.id + "/members/" + this.model.member;
             request.Method = Method.PUT;
             var resp = client.Execute(request);
             var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
@@ -225,7 +208,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/group/count";
-            return this.Count(new QueryHelper().BuildQuery<GroupQuery>(this, request));
+            return this.Count(new QueryHelper().BuildQuery<GroupQueryModel>(this.model, request));
         }
     }
 }

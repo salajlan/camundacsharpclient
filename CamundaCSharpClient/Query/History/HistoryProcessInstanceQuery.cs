@@ -10,66 +10,16 @@ using RestSharp;
 namespace CamundaCSharpClient.Query.History
 {
     public class HistoryProcessInstanceQuery : QueryBase
-    {        
+    {
+        private HistoryProcessInstanceQueryModel model = new HistoryProcessInstanceQueryModel();
+
         public HistoryProcessInstanceQuery(CamundaRestClient client) : base(client)
         {
         }
 
-        protected string processInstanceId { get; set; }
-
-        protected string processInstanceIds { get; set; }
-
-        protected string processInstanceBusinessKey { get; set; }
-
-        protected string processInstanceBusinessKeyLike { get; set; }
-
-        protected string superProcessInstanceId { get; set; }
-
-        protected string subProcessInstanceId { get; set; }
-
-        protected string superCaseInstanceId { get; set; }
-
-        protected string subCaseInstanceId { get; set; }
-
-        protected string caseInstanceId { get; set; }
-
-        protected string processDefinitionId { get; set; }
-
-        protected string processDefinitionKey { get; set; }
-
-        protected string processDefinitionKeyNotIn { get; set; }
-
-        protected string processDefinitionNameLike { get; set; }
-
-        protected string finished { get; set; }
-
-        protected string unfinished { get; set; }
-
-        protected string startedBy { get; set; }
-
-        protected string startedBefore { get; set; }
-
-        protected string startedAfter { get; set; }
-
-        protected string finishedBefore { get; set; }
-
-        protected string finishedAfter { get; set; }
-
-        protected string variables { get; set; }
-
-        protected string sortBy { get; set; }
-
-        protected string sortOrder { get; set; }
-
-        protected int? firstResult { get; set; }
-
-        protected int? maxResults { get; set; }
-
-        protected string processDefinitionName { get; set; }
-
         public HistoryProcessInstanceQuery ProcessInstanceId(string processInstanceId)
         {
-            this.processInstanceId = processInstanceId;
+            this.model.processInstanceId = processInstanceId;
             return this;
         }
 
@@ -81,61 +31,61 @@ namespace CamundaCSharpClient.Query.History
                 processInstanceIdsExtract += item + ",";
             }
 
-            this.processInstanceIds = processInstanceIdsExtract;
+            this.model.processInstanceIds = processInstanceIdsExtract;
             return this;
         }
 
         public HistoryProcessInstanceQuery ProcessInstanceBusinessKey(string processInstanceBusinessKey)
         {
-            this.processInstanceBusinessKey = processInstanceBusinessKey;
+            this.model.processInstanceBusinessKey = processInstanceBusinessKey;
             return this;
         }
 
         public HistoryProcessInstanceQuery ProcessInstanceBusinessKeyLike(string processInstanceBusinessKeyLike)
         {
-            this.processInstanceBusinessKeyLike = processInstanceBusinessKeyLike;
+            this.model.processInstanceBusinessKeyLike = processInstanceBusinessKeyLike;
             return this;
         }
 
         public HistoryProcessInstanceQuery SuperProcessInstanceId(string superProcessInstanceId)
         {
-            this.superProcessInstanceId = superProcessInstanceId;
+            this.model.superProcessInstanceId = superProcessInstanceId;
             return this;
         }
 
         public HistoryProcessInstanceQuery SubProcessInstanceId(string subProcessInstanceId)
         {
-            this.subProcessInstanceId = subProcessInstanceId;
+            this.model.subProcessInstanceId = subProcessInstanceId;
             return this;
         }
 
         public HistoryProcessInstanceQuery SuperCaseInstanceId(string superCaseInstanceId)
         {
-            this.superCaseInstanceId = superCaseInstanceId;
+            this.model.superCaseInstanceId = superCaseInstanceId;
             return this;
         }
 
         public HistoryProcessInstanceQuery SubCaseInstanceId(string subCaseInstanceId)
         {
-            this.subCaseInstanceId = subCaseInstanceId;
+            this.model.subCaseInstanceId = subCaseInstanceId;
             return this;
         }
 
         public HistoryProcessInstanceQuery CaseInstanceId(string caseInstanceId)
         {
-            this.caseInstanceId = caseInstanceId;
+            this.model.caseInstanceId = caseInstanceId;
             return this;
         }
 
         public HistoryProcessInstanceQuery ProcessDefinitionId(string processDefinitionId)
         {
-            this.processDefinitionId = processDefinitionId;
+            this.model.processDefinitionId = processDefinitionId;
             return this;
         }
 
         public HistoryProcessInstanceQuery ProcessDefinitionKey(string processDefinitionKey)
         {
-            this.processDefinitionKey = processDefinitionKey;
+            this.model.processDefinitionKey = processDefinitionKey;
             return this;
         }
 
@@ -147,86 +97,86 @@ namespace CamundaCSharpClient.Query.History
                 processDefinitionKeyNotInExtract += item + ",";
             }
 
-            this.processDefinitionKeyNotIn = processDefinitionKeyNotInExtract;
+            this.model.processDefinitionKeyNotIn = processDefinitionKeyNotInExtract;
             return this;
         }
 
         public HistoryProcessInstanceQuery ProcessDefinitionName(string processDefinitionName)
         {
-            this.processDefinitionName = processDefinitionName;
+            this.model.processDefinitionName = processDefinitionName;
             return this;
         }
 
         public HistoryProcessInstanceQuery ProcessDefinitionNameLike(string processDefinitionNameLike)
         {
-            this.processDefinitionNameLike = processDefinitionNameLike;
+            this.model.processDefinitionNameLike = processDefinitionNameLike;
             return this;
         }
 
         public HistoryProcessInstanceQuery Finished(bool finished)
         {
-            this.finished = finished.ToString().ToLower();
+            this.model.finished = finished.ToString().ToLower();
             return this;
         }
 
         public HistoryProcessInstanceQuery Unfinished(bool unfinished)
         {
-            this.unfinished = unfinished.ToString().ToLower();
+            this.model.unfinished = unfinished.ToString().ToLower();
             return this;
         }
 
         public HistoryProcessInstanceQuery StartedBy(string startedBy)
         {
-            this.startedBy = startedBy;
+            this.model.startedBy = startedBy;
             return this;
         }
 
         public HistoryProcessInstanceQuery StartedBefore(DateTime startedBefore)
         {
-            this.startedBefore = startedBefore.ToString("s");
+            this.model.startedBefore = startedBefore.ToString("s");
             return this;
         }
 
         public HistoryProcessInstanceQuery StartedAfter(DateTime startedAfter)
         {
-            this.startedAfter = startedAfter.ToString("s");
+            this.model.startedAfter = startedAfter.ToString("s");
             return this;
         }
 
         public HistoryProcessInstanceQuery FinishedBefore(DateTime finishedBefore)
         {
-            this.finishedBefore = finishedBefore.ToString("s");
+            this.model.finishedBefore = finishedBefore.ToString("s");
             return this;
         }
 
         public HistoryProcessInstanceQuery FinishedAfter(DateTime finishedAfter)
         {
-            this.finishedAfter = finishedAfter.ToString("s");
+            this.model.finishedAfter = finishedAfter.ToString("s");
             return this;
         }
 
         public HistoryProcessInstanceQuery Variables(string variables)
         {
-            this.variables = variables;
+            this.model.variables = variables;
             return this;
         }
 
         public HistoryProcessInstanceQuery SortByAndSortOrder(string sortBy, string sortOrder)
         {
-            this.sortBy = sortBy;
-            this.sortOrder = sortOrder;
+            this.model.sortBy = sortBy;
+            this.model.sortOrder = sortOrder;
             return this;
         }
 
         public HistoryProcessInstanceQuery FirstResult(int firstResult)
         {
-            this.firstResult = firstResult;
+            this.model.firstResult = firstResult;
             return this;
         }
 
         public HistoryProcessInstanceQuery MaxResults(int maxResults)
         {
-            this.maxResults = maxResults;
+            this.model.maxResults = maxResults;
             return this;
         }
 
@@ -243,7 +193,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance";
-            return this.List<HistoryProcessInstance>(new QueryHelper().BuildQuery<HistoryProcessInstanceQuery>(this, request));
+            return this.List<HistoryProcessInstance>(new QueryHelper().BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -259,7 +209,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance/count";
-            return this.Count(new QueryHelper().BuildQuery<HistoryProcessInstanceQuery>(this, request));
+            return this.Count(new QueryHelper().BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -273,9 +223,9 @@ namespace CamundaCSharpClient.Query.History
         /// </example>
         public HistoryProcessInstance singleResult()
         {
-            new EnsureHelper().NotNull("ProcessInctanceId", this.processInstanceId);
+            new EnsureHelper().NotNull("ProcessInctanceId", this.model.processInstanceId);
             var request = new RestRequest();
-            request.Resource = "/history/process-instance/" + this.processInstanceId;
+            request.Resource = "/history/process-instance/" + this.model.processInstanceId;
             return this.SingleResult<HistoryProcessInstance>(request);
         }
     }

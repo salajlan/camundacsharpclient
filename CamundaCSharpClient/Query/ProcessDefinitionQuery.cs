@@ -13,205 +13,156 @@ namespace CamundaCSharpClient.Query
     public class ProcessDefinitionQuery : QueryBase
     {
         private EnsureHelper ensure = null;
+        private ProcessDefinitionQueryModel model = new ProcessDefinitionQueryModel();
 
         public ProcessDefinitionQuery(CamundaRestClient client)
             : base(client)
         {
             this.ensure = new EnsureHelper();
-        }
-
-        protected string id { get; set; }
-
-        protected string name { get; set; }
-
-        protected string nameLike { get; set; }
-
-        protected string deploymentId { get; set; }
-
-        protected string key { get; set; }
-
-        protected string keyLike { get; set; }
-
-        protected string category { get; set; }
-
-        protected string categoryLike { get; set; }
-
-        protected int? version { get; set; }
-
-        protected string latestVersion { get; set; }
-
-        protected string resourceName { get; set; }
-
-        protected string resourceNameLike { get; set; }
-
-        protected string startableBy { get; set; }
-
-        protected string active { get; set; }
-
-        protected string suspended { get; set; }
-
-        protected string incidentId { get; set; }
-
-        protected string incidentType { get; set; }
-
-        protected string incidentMessage { get; set; }
-
-        protected string incidentMessageLike { get; set; }
-
-        protected int? firstResult { get; set; }
-
-        protected int? maxResults { get; set; }
-
-        protected string sortBy { get; set; }
-
-        protected string sortOrder { get; set; }
-
-        protected string caseInstanceId { get; set; }
-
-        protected string businessKey { get; set; }
+        }        
 
         public ProcessDefinitionQuery Id(string id)
         {
-            this.id = id;
+            this.model.id = id;
             return this;
         }
 
         public ProcessDefinitionQuery Name(string name)
         {
-            this.name = name;
+            this.model.name = name;
             return this;
         }
 
         public ProcessDefinitionQuery BusinessKey(string businessKey)
         {
-            this.businessKey = businessKey;
+            this.model.businessKey = businessKey;
             return this;
         }
 
         public ProcessDefinitionQuery CaseInstanceId(string caseInstanceId)
         {
-            this.caseInstanceId = caseInstanceId;
+            this.model.caseInstanceId = caseInstanceId;
             return this;
         }
 
         public ProcessDefinitionQuery NameLike(string nameLike)
         {
-            this.nameLike = nameLike;
+            this.model.nameLike = nameLike;
             return this;
         }
 
         public ProcessDefinitionQuery DeploymentId(string deploymentId)
         {
-            this.deploymentId = deploymentId;
+            this.model.deploymentId = deploymentId;
             return this;
         }
 
         public ProcessDefinitionQuery Key(string key)
         {
-            this.key = key;
+            this.model.key = key;
             return this;
         }
 
         public ProcessDefinitionQuery KeyLike(string keyLike)
         {
-            this.keyLike = keyLike;
+            this.model.keyLike = keyLike;
             return this;
         }
 
         public ProcessDefinitionQuery Category(string category)
         {
-            this.category = category;
+            this.model.category = category;
             return this;
         }
 
         public ProcessDefinitionQuery CategoryLike(string categoryLike)
         {
-            this.categoryLike = categoryLike;
+            this.model.categoryLike = categoryLike;
             return this;
         }
 
         public ProcessDefinitionQuery Version(int version)
         {
-            this.version = version;
+            this.model.version = version;
             return this;
         }
 
         public ProcessDefinitionQuery LatestVersion(bool latestVersion)
         {
-            this.latestVersion = latestVersion.ToString().ToLower();
+            this.model.latestVersion = latestVersion.ToString().ToLower();
             return this;
         }
 
         public ProcessDefinitionQuery ResourceName(string resourceName)
         {
-            this.resourceName = resourceName;
+            this.model.resourceName = resourceName;
             return this;
         }
 
         public ProcessDefinitionQuery ResourceNameLike(string resourceNameLike)
         {
-            this.resourceNameLike = resourceNameLike;
+            this.model.resourceNameLike = resourceNameLike;
             return this;
         }
 
         public ProcessDefinitionQuery StartableBy(string startableBy)
         {
-            this.startableBy = startableBy;
+            this.model.startableBy = startableBy;
             return this;
         }
 
         public ProcessDefinitionQuery Active(bool active)
         {
-            this.active = active.ToString().ToLower();
+            this.model.active = active.ToString().ToLower();
             return this;
         }
 
         public ProcessDefinitionQuery Suspended(bool suspended)
         {
-            this.suspended = suspended.ToString().ToLower();
+            this.model.suspended = suspended.ToString().ToLower();
             return this;
         }
 
         public ProcessDefinitionQuery IncidentId(string incidentId)
         {
-            this.incidentId = incidentId;
+            this.model.incidentId = incidentId;
             return this;
         }
 
         public ProcessDefinitionQuery IncidentType(string incidentType)
         {
-            this.incidentType = incidentType;
+            this.model.incidentType = incidentType;
             return this;
         }
 
         public ProcessDefinitionQuery IncidentMessage(string incidentMessage)
         {
-            this.incidentMessage = incidentMessage;
+            this.model.incidentMessage = incidentMessage;
             return this;
         }
 
         public ProcessDefinitionQuery IncidentMessageLike(string incidentMessageLike)
         {
-            this.incidentMessageLike = incidentMessageLike;
+            this.model.incidentMessageLike = incidentMessageLike;
             return this;
         }
 
         public ProcessDefinitionQuery FirstResult(int firstResult)
         {
-            this.firstResult = firstResult;
+            this.model.firstResult = firstResult;
             return this;
         }
 
         public ProcessDefinitionQuery MaxResults(int maxResults)
         {
-            this.maxResults = maxResults;
+            this.model.maxResults = maxResults;
             return this;
         }
 
         public ProcessDefinitionQuery SortByNSortOrder(string sortBy, string sortOrder)
         {
-            this.sortBy = sortBy;
-            this.sortOrder = sortOrder;
+            this.model.sortBy = sortBy;
+            this.model.sortOrder = sortOrder;
             return this;
         }        
 
@@ -227,7 +178,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/process-definition";
-            return this.List<ProcessDefinition>(new QueryHelper().BuildQuery<ProcessDefinitionQuery>(this, request));
+            return this.List<ProcessDefinition>(new QueryHelper().BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves a single process definition according to the ProcessDefinition interface in the engine.
@@ -241,14 +192,14 @@ namespace CamundaCSharpClient.Query
         public ProcessDefinition singleResult()
         {
             var request = new RestRequest();
-            if (this.id != null) 
-            { 
-                request.Resource = "/process-definition/" + this.id; 
+            if (this.model.id != null) 
+            {
+                request.Resource = "/process-definition/" + this.model.id; 
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.key);
-                request.Resource = "/process-definition/key/" + this.key;
+                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                request.Resource = "/process-definition/key/" + this.model.key;
             }
 
             return this.SingleResult<ProcessDefinition>(request);
@@ -266,7 +217,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/process-definition/count";
-            return this.Count(new QueryHelper().BuildQuery<ProcessDefinitionQuery>(this, request));
+            return this.Count(new QueryHelper().BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves the BPMN 2.0 XML of this process definition.
@@ -281,14 +232,14 @@ namespace CamundaCSharpClient.Query
         public ProcessDefinitionXML Xml()
         {
             var request = new RestRequest();
-            if (this.id != null) 
-            { 
-                request.Resource = "/process-definition/" + this.id + "/xml"; 
+            if (this.model.id != null) 
+            {
+                request.Resource = "/process-definition/" + this.model.id + "/xml"; 
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.key);
-                request.Resource = "/process-definition/key/" + this.key + "/xml";
+                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                request.Resource = "/process-definition/key/" + this.model.key + "/xml";
             }
 
             return client.Execute<ProcessDefinitionXML>(request);
@@ -308,18 +259,18 @@ namespace CamundaCSharpClient.Query
         {
             this.ensure.NotNull("processDefinitionVariables", variables);
             var request = new RestRequest();
-            if (this.id != null)
+            if (this.model.id != null)
             {
-                request.Resource = "/process-definition/" + this.id + "/start"; 
+                request.Resource = "/process-definition/" + this.model.id + "/start"; 
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.key);
-                request.Resource = "/process-definition/key/" + this.key + "/start";
+                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                request.Resource = "/process-definition/key/" + this.model.key + "/start";
             }
 
             request.Method = Method.POST;
-            object obj = new { variables, this.businessKey, this.caseInstanceId };
+            object obj = new { variables, this.model.businessKey, this.model.caseInstanceId };
             string output = JsonConvert.SerializeObject(obj, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             return client.Execute<processInstance>(request);
@@ -339,14 +290,14 @@ namespace CamundaCSharpClient.Query
         {
             this.ensure.NotNull("processDefinitionSuspend data", data);
             var request = new RestRequest();
-            if (this.id != null)
+            if (this.model.id != null)
             {
-                request.Resource = "/process-definition/" + this.id + "/suspended"; 
+                request.Resource = "/process-definition/" + this.model.id + "/suspended"; 
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.key);
-                request.Resource = "/process-definition/key/" + this.key + "/suspended";
+                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                request.Resource = "/process-definition/key/" + this.model.key + "/suspended";
             }
 
             request.Method = Method.PUT;
