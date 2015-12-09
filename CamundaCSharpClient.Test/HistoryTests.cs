@@ -41,6 +41,25 @@
         }
 
         [Test]
+        public void Details_ShouldGetListOfHistoricDetailsWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<HistoryDetailsModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<HistoryDetailsModel>());
+            var client = this.mockClient.Object;
+            client.History().Details().VariableUpdates(true).SortByNsortOrder(DetailsQueryModel.SortByValues.variableType, "desc").ProcessInstanceId(ProcessInstanceId).List();
+            this.mockClient.Verify(trc => trc.Execute<List<HistoryDetailsModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/history/detail", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(4, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "variableUpdates"));
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processInstanceId"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "variableType");
+        }
+
+        [Test]
         public void Details_ShouldGetCountOfHistoricDetails()
         {
             IRestRequest req = null;
@@ -74,6 +93,25 @@
             Assert.AreEqual(2, req.Parameters.Count);
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "finished"));
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "startedBefore"));
+        }
+
+        [Test]
+        public void PI_ShouldGetListOfHistoricPIWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<HistoryProcessInstanceModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<HistoryProcessInstanceModel>());
+            var client = this.mockClient.Object;
+            client.History().ProcessInstance().Finished(true).StartedBefore(DateTime.Now).SortByAndSortOrder(HistoryProcessInstanceQueryModel.SortByValue.businessKey, "desc").list();
+            this.mockClient.Verify(trc => trc.Execute<List<HistoryProcessInstanceModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/history/process-instance", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(4, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "finished"));
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "startedBefore"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "businessKey");
         }
 
         [Test]
@@ -126,6 +164,25 @@
             Assert.AreEqual(2, req.Parameters.Count);
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processFinished"));
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processInstanceId"));
+        }
+
+        [Test]
+        public void Task_ShouldGetListOfHistoricPIWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<HistoryTaskModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<HistoryTaskModel>());
+            var client = this.mockClient.Object;
+            client.History().Task().ProcessFinished(true).ProcessInstanceId(ProcessInstanceId).SortByAndSortOrder(HistoryTaskQueryModel.SortByValue.assignee, "desc").List();
+            this.mockClient.Verify(trc => trc.Execute<List<HistoryTaskModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/history/task", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(4, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processFinished"));
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processInstanceId"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "assignee");
         }
 
         [Test]

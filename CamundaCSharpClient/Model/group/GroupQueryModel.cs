@@ -7,6 +7,13 @@ namespace CamundaCSharpClient.Model.Group
 {
     public class GroupQueryModel
     {
+        public enum SortByValues
+        {
+            id,
+            name,
+            type
+        }
+
         public string nameLike { get; set; }
 
         public string name { get; set; }
@@ -23,6 +30,6 @@ namespace CamundaCSharpClient.Model.Group
 
         public string sortBy { get; set; }
 
-        public string sortOrder { get; set; }
+        public string sortOrder { get; set; }        
     }
 }

@@ -120,9 +120,9 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             return this;
         }
 
-        public GetProcessInstanceQuery SortByNSortOrder(string sortBy, string sortOrder)
+        public GetProcessInstanceQuery SortByNSortOrder(GetProcessInstanceQueryModel.SortByValue sortBy, string sortOrder)
         {
-            this.model.sortBy = sortBy;
+            this.model.sortBy = Enum.GetName(sortBy.GetType(), sortBy);
             this.model.sortOrder = sortOrder;
             return this;
         }

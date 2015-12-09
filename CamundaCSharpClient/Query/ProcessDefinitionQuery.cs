@@ -160,9 +160,9 @@ namespace CamundaCSharpClient.Query
             return this;
         }
 
-        public ProcessDefinitionQuery SortByNSortOrder(string sortBy, string sortOrder)
+        public ProcessDefinitionQuery SortByNSortOrder(ProcessDefinitionQueryModel.SortByValue sortBy, string sortOrder)
         {
-            this.model.sortBy = sortBy;
+            this.model.sortBy = Enum.GetName(sortBy.GetType(), sortBy);
             this.model.sortOrder = sortOrder;
             return this;
         }        

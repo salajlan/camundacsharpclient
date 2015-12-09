@@ -71,9 +71,9 @@ namespace CamundaCSharpClient.Query.History
             return this;
         }
 
-        public DetailsQuery SortByNsortOrder(string sortBy, string sortOrder)
+        public DetailsQuery SortByNsortOrder(DetailsQueryModel.SortByValues sortBy, string sortOrder)
         {
-            this.model.sortBy = sortBy;
+            this.model.sortBy = Enum.GetName(sortBy.GetType(), sortBy);
             this.model.sortOrder = sortOrder;
             return this;
         }

@@ -7,6 +7,16 @@ namespace CamundaCSharpClient.Model.History
 {
     public class HistoryProcessInstanceQueryModel
     {
+        public enum SortByValue
+        {
+             instanceId,
+             definitionId,
+             businessKey,
+             startTime,
+             duration,
+             endTime             
+        }
+
         public string processInstanceId { get; set; }
 
         public string processInstanceIds { get; set; }

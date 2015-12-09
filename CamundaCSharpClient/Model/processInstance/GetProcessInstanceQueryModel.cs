@@ -7,6 +7,13 @@ namespace CamundaCSharpClient.Model.ProcessInstance
 {
     public class GetProcessInstanceQueryModel
     {
+        public enum SortByValue
+        {
+            instanceId,
+            definitionKey,
+            definitionId
+        }
+
         public int? maxResults { get; set; }
 
         public int? firstResult { get; set; }

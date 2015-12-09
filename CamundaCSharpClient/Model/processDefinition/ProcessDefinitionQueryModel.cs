@@ -7,6 +7,16 @@ namespace CamundaCSharpClient.Model.ProcessDefinition
 {
     public class ProcessDefinitionQueryModel
     {
+        public enum SortByValue
+        {
+            category,
+            key,
+            id,
+            name,
+            version,
+            deploymentId
+        }
+
         public string id { get; set; }
 
         public string name { get; set; }

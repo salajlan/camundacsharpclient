@@ -108,6 +108,24 @@
         }
 
         [Test]
+        public void List_ShouldGetListOfUsersWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<UserModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<UserModel>());
+            var client = this.mockClient.Object;
+            client.User().Id(this.userInfo.id).FirstName(this.userInfo.firstName).sortByNSortOrder(UserQueryModel.SortByValue.email, "desc").list();
+            this.mockClient.Verify(trc => trc.Execute<List<UserModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/user", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(4, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Type == ParameterType.GetOrPost));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "email");
+        }
+
+        [Test]
         public void Count_ShouldGetCountOfUsers()
         {
             IRestRequest req = null;

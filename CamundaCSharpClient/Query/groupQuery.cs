@@ -64,9 +64,9 @@ namespace CamundaCSharpClient.Query
             return this;
         }
 
-        public GroupQuery SortByAndSortOrder(string sortBy, string sortOrder)
+        public GroupQuery SortByAndSortOrder(GroupQueryModel.SortByValues sortBy, string sortOrder)
         {
-            this.model.sortBy = sortBy;
+            this.model.sortBy = Enum.GetName(sortBy.GetType(), sortBy);
             this.model.sortOrder = sortOrder;
             return this;
         }

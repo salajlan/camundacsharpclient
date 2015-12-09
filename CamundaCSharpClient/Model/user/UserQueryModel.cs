@@ -7,6 +7,14 @@ namespace CamundaCSharpClient.Model.Task
 {
     public class UserQueryModel
     {
+        public enum SortByValue
+        {
+            userId,
+            firstName,
+            lastName,
+            email
+        }
+
         public string id { get; set; }
 
         public string firstName { get; set; }

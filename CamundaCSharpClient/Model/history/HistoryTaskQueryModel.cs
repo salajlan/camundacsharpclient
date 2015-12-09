@@ -7,6 +7,30 @@ namespace CamundaCSharpClient.Model.History
 {
     public class HistoryTaskQueryModel
     {
+        public enum SortByValue
+        {
+            taskId,
+            activityInstanceID,
+            processDefinitionId,
+            processInstanceId,
+            executionId,
+            duration,
+            endTime,
+            startTime,
+            taskName,
+            taskDescription,
+            assignee,
+            owner,
+            dueDate,
+            followUpDate,
+            deleteReason, 
+            taskDefinitionKey, 
+            priority, 
+            caseDefinitionId, 
+            caseInstanceId, 
+            caseExecutionId
+        }
+
         public string taskId { get; set; }
 
         public string taskParentTaskId { get; set; }

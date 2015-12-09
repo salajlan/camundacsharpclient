@@ -7,6 +7,22 @@ namespace CamundaCSharpClient.Model.Task
 {
     public class GetTaskQueryModel
     {
+        public enum SortByValue
+        {
+            instanceId,
+            caseInstanceId,
+            dueDate,
+            executionId,
+            caseExecutionId,
+            assignee,
+            created,
+            description,
+            id,
+            name,
+            nameCaseInsensitive,
+            priority
+        }
+
         public string processInstanceId { get; set; }
 
         public string processInstanceBusinessKey { get; set; }

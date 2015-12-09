@@ -7,6 +7,17 @@ namespace CamundaCSharpClient.Model.History
 {
     public class DetailsQueryModel
     {
+        public enum SortByValues
+        {
+            processInstanceId,
+            variableName,
+            variableType,
+            variableRevision,
+            formPropertyId,
+            time,
+            occurrence
+        }
+
         public string processInstanceId { get; set; }
 
         public string activityInstanceId { get; set; }

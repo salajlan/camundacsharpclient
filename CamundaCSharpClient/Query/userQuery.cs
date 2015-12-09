@@ -69,9 +69,9 @@ namespace CamundaCSharpClient.Query
             return this;
         }
 
-        public UserQuery sortByNSortOrder(string sortBy, string sortOrder)
+        public UserQuery sortByNSortOrder(UserQueryModel.SortByValue sortBy, string sortOrder)
         {
-            this.model.sortBy = sortBy;
+            this.model.sortBy = Enum.GetName(sortBy.GetType(), sortBy);
             this.model.sortOrder = sortOrder;
             return this;
         }

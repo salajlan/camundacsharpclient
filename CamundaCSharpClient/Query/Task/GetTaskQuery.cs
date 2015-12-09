@@ -408,9 +408,9 @@ namespace CamundaCSharpClient.Query.Task
             return this;
         }
 
-        public GetTaskQuery SortByNsortOrder(string sortBy, string sortOrder)
+        public GetTaskQuery SortByNsortOrder(GetTaskQueryModel.SortByValue sortBy, string sortOrder)
         {
-            this.model.sortBy = sortBy;
+            this.model.sortBy = Enum.GetName(sortBy.GetType(), sortBy);
             this.model.sortOrder = sortOrder;
             return this;
         }

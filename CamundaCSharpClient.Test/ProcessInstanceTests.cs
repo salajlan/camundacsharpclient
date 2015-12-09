@@ -331,6 +331,25 @@
         }
 
         [Test]
+        public void GetList_ShouldListProcessInstanceWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<processInstanceModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<processInstanceModel>());
+            var client = this.mockClient.Object;
+            client.ProcessInstance().Get().Active(true).MaxResults(20).SortByNSortOrder(GetProcessInstanceQueryModel.SortByValue.instanceId, "desc").list();
+            this.mockClient.Verify(trc => trc.Execute<List<processInstanceModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/process-instance", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(4, req.Parameters.Count);
+            Assert.AreEqual("active", req.Parameters.Find(x => x.Name == "active").Name);
+            Assert.AreEqual("maxResults", req.Parameters.Find(x => x.Name == "maxResults").Name);
+            Assert.AreEqual("instanceId", req.Parameters.Find(x => x.Name == "sortBy").Value);
+        }
+
+        [Test]
         public void GetCount_ShouldGetCountOfProcessInstance()
         {
             IRestRequest req = null;

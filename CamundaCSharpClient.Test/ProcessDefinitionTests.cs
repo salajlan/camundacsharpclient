@@ -43,6 +43,24 @@
         }
 
         [Test]
+        public void List_ShouldListProcessDefinitionsWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<ProcessDefinitionModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<ProcessDefinitionModel>());
+            var client = this.mockClient.Object;
+            client.ProcessDefinition().Active(true).SortByNSortOrder(ProcessDefinitionQueryModel.SortByValue.deploymentId, "desc").list();
+            this.mockClient.Verify(trc => trc.Execute<List<ProcessDefinitionModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/process-definition", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(3, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "active"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "deploymentId");
+        }
+
+        [Test]
         public void SingleResult_ShouldGetProcessDefinitionById()
         {
             IRestRequest req = null;

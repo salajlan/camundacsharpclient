@@ -213,5 +213,23 @@
             Assert.AreEqual(1, req.Parameters.Count);
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "id"));
         }
+
+        [Test]
+        public void List_ShouldGetListOfGroupWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<GroupModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<GroupModel>());
+            var client = this.mockClient.Object;
+            client.Group().Id(GroupTestId).SortByAndSortOrder(GroupQueryModel.SortByValues.name, "desc").list();
+            this.mockClient.Verify(trc => trc.Execute<List<GroupModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/group", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(3, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "id"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "name");
+        }
     }
 }

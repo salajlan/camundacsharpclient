@@ -399,6 +399,24 @@
         }
 
         [Test]
+        public void GetList_ShouldReturnListOfTasksWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<TaskModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<TaskModel>());
+            var client = this.mockClient.Object;
+            client.Task().Get().Active(true).FollowUpDate(DateTime.Now).SortByNsortOrder(GetTaskQueryModel.SortByValue.caseExecutionId, "desc").list();
+            this.mockClient.Verify(trc => trc.Execute<List<TaskModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.AreEqual("/task", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(4, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "active"));
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "followUpDate"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "caseExecutionId");
+        }
+
+        [Test]
         public void GetCount_ShouldReturnCountOfTasks()
         {
             IRestRequest req = null;
