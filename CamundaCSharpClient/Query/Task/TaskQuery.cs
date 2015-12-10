@@ -54,8 +54,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Delegate a task to another user.
@@ -78,8 +77,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Resets a task's assignee. If successful, the task is not assigned to a user.
@@ -98,8 +96,7 @@ namespace CamundaCSharpClient.Query.Task
             request.Resource = "/task/" + this.model.id + "/unclaim";
             request.Method = Method.POST;
             var resp = this.client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Complete a task and update process variables.
@@ -122,8 +119,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Resolve a task and update execution variables.
@@ -146,8 +142,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>Change the assignee of a task to a specific user.
@@ -171,8 +166,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Gets the comments for a task. or Retrieves a single task comment by task id and comment id.

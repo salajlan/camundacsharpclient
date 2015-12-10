@@ -53,6 +53,7 @@
     <Compile Include="Group.cs" />
     <Compile Include="Helper\EnsureHelper.cs" />
     <Compile Include="Helper\queryHelper.cs" />
+    <Compile Include="Helper\ReturnHelper.cs" />
     <Compile Include="History.cs" />
     <Compile Include="Model\ActivityInstanceModel.cs" />
     <Compile Include="Model\camundaBase.cs" />

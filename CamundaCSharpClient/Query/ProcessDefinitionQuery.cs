@@ -304,9 +304,8 @@ namespace CamundaCSharpClient.Query
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
-            var resp = client.Execute(request);
-            var desc = JsonConvert.DeserializeObject<RestException>(resp.Content);
-            return resp.StatusCode == System.Net.HttpStatusCode.NoContent ? (new NoContentStatus() { TNoContentStatus = TextContentStatus.Success, RestException = desc, StatusCode = (int)resp.StatusCode }) : (new NoContentStatus() { TNoContentStatus = TextContentStatus.Failed, RestException = desc, StatusCode = (int)resp.StatusCode });
+            var resp = this.client.Execute(request);
+            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
         }
     }
 }

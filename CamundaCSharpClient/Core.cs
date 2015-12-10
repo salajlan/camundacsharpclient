@@ -90,7 +90,34 @@ namespace CamundaCSharpClient
 
         public virtual IRestResponse Execute(IRestRequest request)
         {
-            return this._client.Execute(request);
+            IRestResponse resp = this._client.Execute(request);
+            if (((int)resp.StatusCode) >= 400)
+            {
+                string restException;
+                string str;
+                var newJson = string.Empty;
+                UTF8Encoding enc = new UTF8Encoding();
+                if (resp.ContentType != "application/json")
+                {
+                    restException = "{{ \"RestException\" : {{ \"type\" : \"HtmlFormatException\", \"message\" : \"{0}\" }}, \"StatusCode\" : {1} }}";
+
+                    // override the ContentType to Json because the default deserializer for RESTSharp is XML
+                    resp.ContentType = "application/json";
+                    str = enc.GetString(resp.RawBytes);
+                    newJson = string.Format(restException, ScrubHtml(str), (int)resp.StatusCode);
+                }
+                else 
+                { 
+                    restException = "{{ \"RestException\" : {0}, \"StatusCode\" : {1} }}";
+                    str = enc.GetString(resp.RawBytes);
+                    newJson = string.Format(restException, str, (int)resp.StatusCode);
+                }
+
+                resp.Content = newJson;
+                resp.RawBytes = Encoding.UTF8.GetBytes(newJson.ToString());
+            }
+        
+            return resp;
         }
 
         protected static string ScrubHtml(string value)
