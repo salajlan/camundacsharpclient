@@ -13,13 +13,11 @@ namespace CamundaCSharpClient.Query
 {
     public class ProcessDefinitionQuery : QueryBase
     {
-        private EnsureHelper ensure = null;
         private ProcessDefinitionQueryModel model = new ProcessDefinitionQueryModel();
 
         public ProcessDefinitionQuery(CamundaRestClient client)
             : base(client)
         {
-            this.ensure = new EnsureHelper();
         }        
 
         public ProcessDefinitionQuery Id(string id)
@@ -179,7 +177,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/process-definition";
-            return this.List<ProcessDefinitionModel>(new QueryHelper().BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
+            return this.List<ProcessDefinitionModel>(QueryHelper.BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves a single process definition according to the ProcessDefinition interface in the engine.
@@ -199,7 +197,7 @@ namespace CamundaCSharpClient.Query
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                EnsureHelper.NotNull("processDefiniftionKey", this.model.key);
                 request.Resource = "/process-definition/key/" + this.model.key;
             }
 
@@ -218,7 +216,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/process-definition/count";
-            return this.Count(new QueryHelper().BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
+            return this.Count(QueryHelper.BuildQuery<ProcessDefinitionQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves the BPMN 2.0 XML of this process definition.
@@ -239,7 +237,7 @@ namespace CamundaCSharpClient.Query
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                EnsureHelper.NotNull("processDefiniftionKey", this.model.key);
                 request.Resource = "/process-definition/key/" + this.model.key + "/xml";
             }
 
@@ -258,7 +256,7 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public processInstanceModel Start<T>(T variables)
         {
-            this.ensure.NotNull("processDefinitionVariables", variables);
+            EnsureHelper.NotNull("processDefinitionVariables", variables);
             var request = new RestRequest();
             if (this.model.id != null)
             {
@@ -266,7 +264,7 @@ namespace CamundaCSharpClient.Query
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                EnsureHelper.NotNull("processDefiniftionKey", this.model.key);
                 request.Resource = "/process-definition/key/" + this.model.key + "/start";
             }
 
@@ -289,7 +287,7 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Suspend(ProcessDefinitionSuspendModel data)
         {
-            this.ensure.NotNull("processDefinitionSuspend data", data);
+            EnsureHelper.NotNull("processDefinitionSuspend data", data);
             var request = new RestRequest();
             if (this.model.id != null)
             {
@@ -297,7 +295,7 @@ namespace CamundaCSharpClient.Query
             }
             else
             {
-                this.ensure.NotNull("processDefiniftionKey", this.model.key);
+                EnsureHelper.NotNull("processDefiniftionKey", this.model.key);
                 request.Resource = "/process-definition/key/" + this.model.key + "/suspended";
             }
 
@@ -305,7 +303,7 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
     }
 }

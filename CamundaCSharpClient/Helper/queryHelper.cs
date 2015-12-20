@@ -7,13 +7,13 @@ using RestSharp;
 
 namespace CamundaCSharpClient.Helper
 {
-    public class QueryHelper
+    public static class QueryHelper
     {
         /// <summary>
         /// get the class property and if it's not null add it as a parameter to the request
         /// </summary>
         /// <returns>RestRequest</returns>
-        public RestRequest BuildQuery<T>(T query, RestRequest request)
+        public static RestRequest BuildQuery<T>(T query, RestRequest request)
         {            
             foreach (var item in query.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {

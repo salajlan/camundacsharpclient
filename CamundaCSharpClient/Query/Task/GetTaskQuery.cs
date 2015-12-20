@@ -439,7 +439,7 @@ namespace CamundaCSharpClient.Query.Task
         {
             var request = new RestRequest();
             request.Resource = "/task";
-            return this.List<TaskModel>(new QueryHelper().BuildQuery<GetTaskQueryModel>(this.model, request));
+            return this.List<TaskModel>(QueryHelper.BuildQuery<GetTaskQueryModel>(this.model, request));
         }
 
         /// <summary> Get the number of tasks that fulfill a provided filter.
@@ -454,7 +454,7 @@ namespace CamundaCSharpClient.Query.Task
         {
             var request = new RestRequest();
             request.Resource = "/task/count";
-            return this.Count(new QueryHelper().BuildQuery<GetTaskQueryModel>(this.model, request));
+            return this.Count(QueryHelper.BuildQuery<GetTaskQueryModel>(this.model, request));
         }        
     }
 }

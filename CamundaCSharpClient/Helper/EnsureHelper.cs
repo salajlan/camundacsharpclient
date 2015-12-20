@@ -5,9 +5,9 @@ using System.Text;
 
 namespace CamundaCSharpClient.Helper
 {
-    public class EnsureHelper
+    public static class EnsureHelper
     {
-        public void NotNull(string variableName, object value)
+        public static void NotNull(string variableName, object value)
         {
             if (value == null)
             {

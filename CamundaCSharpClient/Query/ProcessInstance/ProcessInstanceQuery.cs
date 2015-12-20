@@ -12,13 +12,11 @@ namespace CamundaCSharpClient.Query.ProcessInstance
 {
     public class ProcessInstanceQuery : QueryBase
     {
-        private EnsureHelper ensure = null;
         private ProcessInstanceQueryModel model = new ProcessInstanceQueryModel();
 
         public ProcessInstanceQuery(CamundaRestClient client)
             : base(client)
         {
-            this.ensure = new EnsureHelper();
         }                
 
         public ProcessInstanceQuery Id(string id)
@@ -84,7 +82,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public processInstanceModel SingleResult()
         {
-            this.ensure.NotNull("ProcessInstanceId", this.model.id);
+            EnsureHelper.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.model.id;
             return base.SingleResult<processInstanceModel>(request);
@@ -106,7 +104,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public NoContentStatus Delete()
         {
-            this.ensure.NotNull("ProcessInstanceId", this.model.id);
+            EnsureHelper.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
             if (this.model.varId != null)
             {
@@ -119,7 +117,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
 
             request.Method = Method.DELETE;
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>
@@ -143,7 +141,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public T Variables<T>() where T : new()
         {
-            this.ensure.NotNull("ProcessInstanceId", this.model.id);
+            EnsureHelper.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
             if (this.model.varId != null)
             {
@@ -173,7 +171,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public NoContentStatus Variables<T>(T modifications, string[] deletions)
         {
-            this.ensure.NotNull("ProcessInstanceId", this.model.id);
+            EnsureHelper.NotNull("ProcessInstanceId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.model.id + "/variables";
             request.Method = Method.POST;
@@ -181,7 +179,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>
@@ -195,16 +193,16 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// </example>
         public NoContentStatus Variables<T>(T variable)
         {
-            this.ensure.NotNull("ProcessInstanceId", this.model.id);
-            this.ensure.NotNull("variableData", variable);
-            this.ensure.NotNull("varId", this.model.varId);
+            EnsureHelper.NotNull("ProcessInstanceId", this.model.id);
+            EnsureHelper.NotNull("variableData", variable);
+            EnsureHelper.NotNull("varId", this.model.varId);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.model.id + "/variables/" + this.model.varId;
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(variable);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>
@@ -223,7 +221,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// <returns>noContentStatus</returns>
         public NoContentStatus Suspend()
         {
-            this.ensure.NotNull("Suspended", this.model.suspended);
+            EnsureHelper.NotNull("Suspended", this.model.suspended);
             object obj;
             var request = new RestRequest();
             request.Resource = "/process-instance/suspended";
@@ -234,12 +232,12 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             }
             else if (this.model.processDefinitionId == null)
             {
-                this.ensure.NotNull("processDefinitionKey", this.model.processDefinitionKey);
+                EnsureHelper.NotNull("processDefinitionKey", this.model.processDefinitionKey);
                 obj = new { this.model.processDefinitionKey, this.model.suspended };
             }
             else
             {
-                this.ensure.NotNull("processDefinitionId", this.model.processDefinitionId);
+                EnsureHelper.NotNull("processDefinitionId", this.model.processDefinitionId);
                 obj = new { this.model.processDefinitionId, this.model.suspended };
             }
 
@@ -247,7 +245,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>
@@ -262,7 +260,7 @@ namespace CamundaCSharpClient.Query.ProcessInstance
         /// <returns>activityInstance</returns>
         public ActivityInstanceModel ActivityInstance()
         {
-            this.ensure.NotNull("processInstanceId", this.model.id);
+            EnsureHelper.NotNull("processInstanceId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/process-instance/" + this.model.id + "/activity-instances";
             return client.Execute<ActivityInstanceModel>(request);

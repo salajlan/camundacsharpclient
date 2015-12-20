@@ -10,7 +10,7 @@ namespace CamundaCSharpClient.Helper
 {
     public class ReturnHelper
     {
-        public NoContentStatus NoContentReturn(string content, HttpStatusCode statusCode)
+        public static NoContentStatus NoContentReturn(string content, HttpStatusCode statusCode)
         {
             var desc = JsonConvert.DeserializeObject<CamundaBase>(content);
             RestException exc = (desc == null) ? null : desc.RestException;

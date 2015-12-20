@@ -12,13 +12,11 @@ namespace CamundaCSharpClient.Query.Task
 {
     public class TaskQuery : QueryBase
     {
-        private EnsureHelper ensure = null;
         private TaskQueryModel model = new TaskQueryModel();
 
         public TaskQuery(CamundaRestClient client)
             : base(client)
-        {            
-            this.ensure = new EnsureHelper();
+        { 
         }
 
         public TaskQuery Id(string id)
@@ -44,8 +42,8 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public NoContentStatus Claim()
         {
-            this.ensure.NotNull("Id", this.model.id);
-            this.ensure.NotNull("userId", this.model.userId);
+            EnsureHelper.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("userId", this.model.userId);
 
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/claim";
@@ -54,7 +52,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Delegate a task to another user.
@@ -67,8 +65,8 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public NoContentStatus Delegate()
         {
-            this.ensure.NotNull("Id", this.model.id);
-            this.ensure.NotNull("userId", this.model.userId);
+            EnsureHelper.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("userId", this.model.userId);
 
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/delegate";
@@ -77,7 +75,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Resets a task's assignee. If successful, the task is not assigned to a user.
@@ -90,13 +88,13 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public NoContentStatus UnClaim()
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/unclaim";
             request.Method = Method.POST;
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Complete a task and update process variables.
@@ -110,7 +108,7 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public NoContentStatus Complete(object variables)
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
             request.Method = Method.POST;
@@ -119,7 +117,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Resolve a task and update execution variables.
@@ -133,7 +131,7 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public NoContentStatus Resolve(object variables)
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
             request.Method = Method.POST;
@@ -142,7 +140,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>Change the assignee of a task to a specific user.
@@ -156,8 +154,8 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public NoContentStatus Assignee()
         {
-            this.ensure.NotNull("Id", this.model.id);
-            this.ensure.NotNull("userId", this.model.userId);
+            EnsureHelper.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("userId", this.model.userId);
 
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/assignee";
@@ -166,7 +164,7 @@ namespace CamundaCSharpClient.Query.Task
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Gets the comments for a task. or Retrieves a single task comment by task id and comment id.
@@ -179,7 +177,7 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public List<TaskCommentModel> Comment()
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/comment";
             return this.client.Execute<List<TaskCommentModel>>(request);
@@ -195,8 +193,8 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public TaskCommentModel Comment(string commentId)
         {
-            this.ensure.NotNull("Id", this.model.id);
-            this.ensure.NotNull("ComemntId", commentId);
+            EnsureHelper.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("ComemntId", commentId);
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/comment/" + commentId;
             return this.client.Execute<TaskCommentModel>(request);
@@ -213,8 +211,8 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public TaskCommentModel Create(string comment)
         {
-            this.ensure.NotNull("Id", this.model.id);
-            this.ensure.NotNull("commentMessage", comment);
+            EnsureHelper.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("commentMessage", comment);
 
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id + "/comment/create";
@@ -248,7 +246,7 @@ namespace CamundaCSharpClient.Query.Task
         /// </example>
         public TaskModel SingleResult()
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
             var request = new RestRequest();
             request.Resource = "/task/" + this.model.id;
             return this.SingleResult<TaskModel>(request);

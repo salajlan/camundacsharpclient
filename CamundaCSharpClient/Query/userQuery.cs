@@ -12,13 +12,11 @@ namespace CamundaCSharpClient.Query
 {
     public class UserQuery : QueryBase
     {
-        private EnsureHelper ensure = null;
         private UserQueryModel model = new UserQueryModel();
 
         public UserQuery(CamundaRestClient client)
             : base(client)
         {
-            this.ensure = new EnsureHelper();
         }
 
         public UserQuery Id(string id)
@@ -94,14 +92,14 @@ namespace CamundaCSharpClient.Query
         /// <returns>NoContentStatus</returns>
         public NoContentStatus Delete()
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
             request.Resource = "/user/" + this.model.id;
             request.Method = Method.DELETE;
             var resp = this.client.Execute(request);
             var desc = JsonConvert.DeserializeObject<CamundaBase>(resp.Content);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary>
@@ -110,7 +108,7 @@ namespace CamundaCSharpClient.Query
         /// <returns>User</returns>
         public UserModel Profile()
         {
-            this.ensure.NotNull("Id", this.model.id);
+            EnsureHelper.NotNull("Id", this.model.id);
 
             var request = new RestRequest();
             request.Resource = "/user/" + this.model.id + "/profile";
@@ -126,7 +124,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/user";
-            request = new QueryHelper().BuildQuery<UserQueryModel>(this.model, request);
+            request = QueryHelper.BuildQuery<UserQueryModel>(this.model, request);
             return this.List<UserModel>(request);
         }
 
@@ -138,7 +136,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/user/count";
-            request = new QueryHelper().BuildQuery<UserQueryModel>(this.model, request);
+            request = QueryHelper.BuildQuery<UserQueryModel>(this.model, request);
             return this.Count(request);
         }
 
@@ -150,8 +148,8 @@ namespace CamundaCSharpClient.Query
         /// <returns>NoContentStatus</returns>
         public NoContentStatus Create(UserModel userData, string password)
         {
-            this.ensure.NotNull("UserData", userData);
-            this.ensure.NotNull("password", password);
+            EnsureHelper.NotNull("UserData", userData);
+            EnsureHelper.NotNull("password", password);
 
             var request = new RestRequest();
             request.Resource = "/user/create";
@@ -160,13 +158,13 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(obj);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         public NoContentStatus Update(UserModel updatedData)
         {
-            this.ensure.NotNull("UserId", this.model.id);
-            this.ensure.NotNull("UserData", updatedData);
+            EnsureHelper.NotNull("UserId", this.model.id);
+            EnsureHelper.NotNull("UserData", updatedData);
 
             var request = new RestRequest();
             request.Resource = "/user/" + this.model.id + "/profile";
@@ -174,7 +172,7 @@ namespace CamundaCSharpClient.Query
             string output = JsonConvert.SerializeObject(updatedData);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
     }
 }

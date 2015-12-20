@@ -79,7 +79,7 @@ namespace CamundaCSharpClient
 
         public void Authenticator(ICredentials credentials)
         {
-            new EnsureHelper().NotNull("credentials", credentials);
+            EnsureHelper.NotNull("credentials", credentials);
             this._client.Authenticator = new NtlmAuthenticator(credentials);
         }
 

@@ -13,13 +13,11 @@ namespace CamundaCSharpClient.Query
 {
     public class GroupQuery : QueryBase
     {
-        private EnsureHelper ensure = null;
         private GroupQueryModel model = new GroupQueryModel();
 
         public GroupQuery(CamundaRestClient client)
             : base(client)
         {
-            this.ensure = new EnsureHelper();
         }        
 
         public GroupQuery Id(string id)
@@ -83,7 +81,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/group";
-            return this.List<GroupModel>(new QueryHelper().BuildQuery<GroupQueryModel>(this.model, request));
+            return this.List<GroupModel>(QueryHelper.BuildQuery<GroupQueryModel>(this.model, request));
         }
 
         /// <summary> Retrieves a single group.
@@ -96,7 +94,7 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public GroupModel singleResult()
         {
-            this.ensure.NotNull("GroupId", this.model.id);
+            EnsureHelper.NotNull("GroupId", this.model.id);
             var request = new RestRequest();
             request.Resource = "/group/" + this.model.id;
             return this.SingleResult<GroupModel>(request);
@@ -113,7 +111,7 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Delete()
         {
-            this.ensure.NotNull("GroupId", this.model.id);
+            EnsureHelper.NotNull("GroupId", this.model.id);
             var request = new RestRequest();
             if (this.model.member != null)
             {
@@ -126,7 +124,7 @@ namespace CamundaCSharpClient.Query
 
             request.Method = Method.DELETE;
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Create a new group.
@@ -141,14 +139,14 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Create(GroupModel data)
         {
-            this.ensure.NotNull("groupData", data);
+            EnsureHelper.NotNull("groupData", data);
             var request = new RestRequest();
             request.Resource = "/group/create";
             request.Method = Method.POST;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Updates a given group.
@@ -163,15 +161,15 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Update(GroupModel data)
         {
-            this.ensure.NotNull("groupId", this.model.id);
-            this.ensure.NotNull("groupData", data);
+            EnsureHelper.NotNull("groupId", this.model.id);
+            EnsureHelper.NotNull("groupData", data);
             var request = new RestRequest();
             request.Resource = "/group/" + this.model.id;
             request.Method = Method.PUT;
             string output = JsonConvert.SerializeObject(data);
             request.AddParameter("application/json", output, ParameterType.RequestBody);
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Add a member to a group.
@@ -184,13 +182,13 @@ namespace CamundaCSharpClient.Query
         /// </example>
         public NoContentStatus Create()
         {
-            this.ensure.NotNull("groupId", this.model.id);
-            this.ensure.NotNull("groupMemeber", this.model.member);
+            EnsureHelper.NotNull("groupId", this.model.id);
+            EnsureHelper.NotNull("groupMemeber", this.model.member);
             var request = new RestRequest();
             request.Resource = "/group/" + this.model.id + "/members/" + this.model.member;
             request.Method = Method.PUT;
             var resp = this.client.Execute(request);
-            return new ReturnHelper().NoContentReturn(resp.Content, resp.StatusCode);
+            return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
         /// <summary> Query for groups using a list of parameters and retrieves the count.
@@ -205,7 +203,7 @@ namespace CamundaCSharpClient.Query
         {
             var request = new RestRequest();
             request.Resource = "/group/count";
-            return this.Count(new QueryHelper().BuildQuery<GroupQueryModel>(this.model, request));
+            return this.Count(QueryHelper.BuildQuery<GroupQueryModel>(this.model, request));
         }
     }
 }

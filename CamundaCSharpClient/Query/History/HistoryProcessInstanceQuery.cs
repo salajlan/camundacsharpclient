@@ -193,7 +193,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance";
-            return this.List<HistoryProcessInstanceModel>(new QueryHelper().BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
+            return this.List<HistoryProcessInstanceModel>(QueryHelper.BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/process-instance/count";
-            return this.Count(new QueryHelper().BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
+            return this.Count(QueryHelper.BuildQuery<HistoryProcessInstanceQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace CamundaCSharpClient.Query.History
         /// </example>
         public HistoryProcessInstanceModel singleResult()
         {
-            new EnsureHelper().NotNull("ProcessInctanceId", this.model.processInstanceId);
+            EnsureHelper.NotNull("ProcessInctanceId", this.model.processInstanceId);
             var request = new RestRequest();
             request.Resource = "/history/process-instance/" + this.model.processInstanceId;
             return this.SingleResult<HistoryProcessInstanceModel>(request);

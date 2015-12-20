@@ -278,7 +278,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/task";
-            return this.List<HistoryTaskModel>(new QueryHelper().BuildQuery<HistoryTaskQueryModel>(this.model, request));
+            return this.List<HistoryTaskModel>(QueryHelper.BuildQuery<HistoryTaskQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/task/count";
-            return this.Count(new QueryHelper().BuildQuery<HistoryTaskQueryModel>(this.model, request));
+            return this.Count(QueryHelper.BuildQuery<HistoryTaskQueryModel>(this.model, request));
         }
     }
 }

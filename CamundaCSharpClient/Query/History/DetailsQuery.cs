@@ -103,7 +103,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/detail";
-            return this.List<HistoryDetailsModel>(new QueryHelper().BuildQuery<DetailsQueryModel>(this.model, request));
+            return this.List<HistoryDetailsModel>(QueryHelper.BuildQuery<DetailsQueryModel>(this.model, request));
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace CamundaCSharpClient.Query.History
         {
             var request = new RestRequest();
             request.Resource = "/history/detail/count";
-            return this.Count(new QueryHelper().BuildQuery<DetailsQueryModel>(this.model, request));
+            return this.Count(QueryHelper.BuildQuery<DetailsQueryModel>(this.model, request));
         }
     }
 }
