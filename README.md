@@ -8,14 +8,14 @@ An unofficial c# client for Camunda engine REST API
 Installation
 ----------------
 You could install client by using nuget package manager
-```
+```ps1
 PM> Install-Package camunda
 
 ```
 
 Usage
 --------
-```
+``` CSharp
 // create new camunda rest client
 var client = new CamundaRestClient("http://localhost:8080/engine-rest");
 
@@ -50,11 +50,11 @@ var usersSalesGroup = client.User().MemberOfGroup("sales").list();
 Authentication
 --------------------
 Camunda engine REST API Support only Basic authentication
-```
+``` CSharp
 client.Authenticator("username","password");
 ```
 And we have adding support for NTLM authentication on our camunda engine, and if you have you can use
-```
+``` CSharp
 // as new NtlmAuthenticator()
 client.Authenticator();
 ```
