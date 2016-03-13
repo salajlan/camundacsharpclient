@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>camunda</id>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <authors>Sulaiman Alajlan</authors>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
-    <projectUrl>https://camunda.org/</projectUrl>
+    <projectUrl>https://github.com/salajlan/camundacsharpclient</projectUrl>
     <iconUrl>http://camunda.com/img/camunda/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>C# client for Camunda REST API</description>
-    <releaseNotes>First Release</releaseNotes>
+    <releaseNotes> more improvment and more methods refer to github commit </releaseNotes>
     <tags>camunda BPM opensourse REST BPMN</tags>
   </metadata>
 </package>

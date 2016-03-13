@@ -202,5 +202,40 @@
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processFinished"));
             Assert.IsNotNull(req.Parameters.Find(x => x.Name == "processInstanceId"));
         }
+
+        [Test]
+        public void VariableInstance_ShouldGetListOfHistoricWithOrder()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<List<HistoryVariableInstanceModel>>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new List<HistoryVariableInstanceModel>());
+            var client = this.mockClient.Object;
+            client.History().VariableInstance().VariableName("testVariable").SortByAndSortOrder(HistoryVariableInstanceQueryModel.SortByValues.instanceId, "desc").List();
+            this.mockClient.Verify(trc => trc.Execute<List<HistoryVariableInstanceModel>>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/history/variable-instance", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(3, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "variableName"));
+            Assert.AreEqual(req.Parameters.Find(x => x.Name == "sortBy").Value, "instanceId");
+        }
+
+        [Test]
+        public void VariableInstance_ShouldGetCountOfHistoricVariableInstance()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new Count());
+            var client = this.mockClient.Object;
+            client.History().VariableInstance().VariableName("testVariable").Count();
+            this.mockClient.Verify(trc => trc.Execute<Count>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/history/variable-instance/count", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.AreEqual(1, req.Parameters.Count);
+            Assert.IsNotNull(req.Parameters.Find(x => x.Name == "variableName"));
+        }
     }
 }

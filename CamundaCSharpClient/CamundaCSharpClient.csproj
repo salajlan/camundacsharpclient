@@ -58,6 +58,8 @@
     <Compile Include="Model\ActivityInstanceModel.cs" />
     <Compile Include="Model\camundaBase.cs" />
     <Compile Include="Model\Count.cs" />
+    <Compile Include="Model\History\HistoryVariableInstanceModel.cs" />
+    <Compile Include="Model\History\HistoryVariableInstanceQueryModel.cs" />
     <Compile Include="Model\ProcessInstance\GetProcessInstanceQueryModel.cs" />
     <Compile Include="Model\Task\GetTaskQueryModel.cs" />
     <Compile Include="Model\Group\GroupQueryModel.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Model\ProcessInstance\processInstanceModel.cs" />
     <Compile Include="Model\ProcessInstance\ProcessInstanceQueryModel.cs" />
     <Compile Include="Model\RestException.cs" />
+    <Compile Include="Model\Task\TaskFormKeyModel.cs" />
     <Compile Include="Model\Task\TaskModel.cs" />
     <Compile Include="Model\Task\TaskCommentModel.cs" />
     <Compile Include="Model\Task\TaskQueryModel.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="Query\History\HistoryProcessInstanceQuery.cs" />
     <Compile Include="Query\History\HistoryQuery.cs" />
     <Compile Include="Query\History\HistoryTaskQuery.cs" />
+    <Compile Include="Query\History\HistoryVariableInstanceQuery.cs" />
     <Compile Include="Query\ProcessInstance\GetProcessInstanceQuery.cs" />
     <Compile Include="Query\ProcessInstance\ProcessInstanceQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

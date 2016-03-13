@@ -25,5 +25,10 @@ namespace CamundaCSharpClient.Query.History
         {
             return new HistoryTaskQuery(client);
         }
+
+        public HistoryVariableInstanceQuery VariableInstance()
+        {
+            return new HistoryVariableInstanceQuery(client);
+        }
     }
 }
