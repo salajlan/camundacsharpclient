@@ -97,6 +97,25 @@ namespace CamundaCSharpClient.Query.Task
             return ReturnHelper.NoContentReturn(resp.Content, resp.StatusCode);
         }
 
+        /// <summary> Retrieves the form key for a task
+        /// </summary>
+        /// <example> 
+        /// <code>
+        /// var camundaCl = new camundaRestClient("http://localhost:8080/engine-rest");
+        /// var tsk5 = camundaCl.Task().Id("37ccd7fe-78c5-11e5-beb3-40a8f0a54b22").formKey();           
+        /// </code>
+        /// </example>
+        public TaskFormKeyModel formKey()
+        {
+            EnsureHelper.NotNull("Id", this.model.id);
+
+            var request = new RestRequest();
+            request.Resource = "/task/" + this.model.id + "/form";
+            request.Method = Method.GET;
+            var resp = this.client.Execute(request);
+            return this.client.Execute<TaskFormKeyModel>(request);
+        }
+
         /// <summary> Complete a task and update process variables.
         /// </summary>
         /// <example> 

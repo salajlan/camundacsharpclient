@@ -124,6 +124,36 @@
         }
 
         [Test]
+        public void FormKey_ShouldGetFormKeyOfTask()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<TaskFormKeyModel>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new TaskFormKeyModel());
+            var client = this.mockClient.Object;
+            client.Task().Id(TaskId).formKey();
+            this.mockClient.Verify(trc => trc.Execute<TaskFormKeyModel>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.IsNotNull(req);
+            Assert.AreEqual("/task/" + TaskId + "/form", req.Resource);
+            Assert.AreEqual(Method.GET, req.Method);
+            Assert.IsNull(req.Parameters.Find(x => x.Type == ParameterType.RequestBody));
+        }
+
+        [Test]
+        public void FormKey_ShouldThrowArgumentNullException_WhenTaskIdIsMissing()
+        {
+            IRestRequest req = null;
+            this.mockClient.Setup(trc => trc.Execute<TaskFormKeyModel>(It.IsAny<IRestRequest>()))
+                .Callback<IRestRequest>((request) => req = request)
+                .Returns(new TaskFormKeyModel());
+            var client = this.mockClient.Object;
+            client.Task().Id(TaskId).UserId(UserId).formKey();
+            this.mockClient.Verify(trc => trc.Execute<TaskFormKeyModel>(It.IsAny<IRestRequest>()), Times.Once);
+            Assert.AreEqual("/task/" + TaskId + "/form", req.Resource);
+            Assert.Throws<ArgumentNullException>(delegate { client.Task().UnClaim(); });
+        }
+
+        [Test]
         public void Complete_ShouldCompleteTheTask()
         {
             IRestRequest req = null;
